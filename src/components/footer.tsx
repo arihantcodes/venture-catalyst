@@ -4,25 +4,25 @@ import { FaTwitter, FaGithub, FaLinkedin, FaDiscord } from "react-icons/fa";
 
 const Footer: FC = () => {
   return (
-    <footer className="bg-black text-[#eff5ffb5] py-8 mt-16">
-      <div className="container mx-auto flex flex-col md:flex-row justify-between items-start md:items-center px-4">
-        <div className="flex space-x-4 mb-8 md:mb-0">
+    <footer className="bg-black text-[#eff5ffb5] py-12 mt-16">
+      <div className="container mx-auto flex flex-col md:flex-row justify-between items-start md:items-center px-6">
+        <div className="flex space-x-6 mb-8 md:mb-0">
           <Link href="#" aria-label="Twitter">
-            <FaTwitter className="h-6 w-6" />
+            <FaTwitter className="h-6 w-6 hover:text-blue-500 transition-colors duration-300" />
           </Link>
           <Link href="#" aria-label="GitHub">
-            <FaGithub className="h-6 w-6" />
+            <FaGithub className="h-6 w-6 hover:text-gray-500 transition-colors duration-300" />
           </Link>
           <Link href="#" aria-label="LinkedIn">
-            <FaLinkedin className="h-6 w-6" />
+            <FaLinkedin className="h-6 w-6 hover:text-blue-700 transition-colors duration-300" />
           </Link>
           <Link href="#" aria-label="Discord">
-            <FaDiscord className="h-6 w-6" />
+            <FaDiscord className="h-6 w-6 hover:text-indigo-500 transition-colors duration-300" />
           </Link>
         </div>
         <div className="flex flex-wrap justify-between w-full md:w-auto">
           <div className="mb-8 md:mb-0 md:mr-16">
-            <h3 className=" mb-2">Documentation</h3>
+            <h3 className="mb-3 font-semibold">Documentation</h3>
             <ul>
               <li>
                 <Link href="#" className="hover:underline">
@@ -52,7 +52,7 @@ const Footer: FC = () => {
             </ul>
           </div>
           <div className="mb-8 md:mb-0 md:mr-16">
-            <h3 className=" mb-2">Resources</h3>
+            <h3 className="mb-3 font-semibold">Resources</h3>
             <ul>
               <li>
                 <Link href="#" className="hover:underline">
@@ -77,7 +77,7 @@ const Footer: FC = () => {
             </ul>
           </div>
           <div className="mb-8 md:mb-0 md:mr-16">
-            <h3 className=" mb-2">Company</h3>
+            <h3 className="mb-3 font-semibold">Company</h3>
             <ul>
               <li>
                 <Link href="#" className="hover:underline">
@@ -102,7 +102,7 @@ const Footer: FC = () => {
             </ul>
           </div>
           <div>
-            <h3 className=" mb-2">Legal</h3>
+            <h3 className="mb-3 font-semibold">Legal</h3>
             <ul>
               <li>
                 <Link href="#" className="hover:underline">
@@ -122,6 +122,10 @@ const Footer: FC = () => {
             </ul>
           </div>
         </div>
+      </div>
+      <div className="border-t border-gray-700 mt-8 pt-4 text-center text-sm text-gray-500">
+        <p>&copy; 2024 VentureCatalyst. All rights reserved.</p>
+   
       </div>
     </footer>
   );
