@@ -4,7 +4,7 @@ import { FaTwitter, FaGithub, FaLinkedin, FaDiscord } from "react-icons/fa";
 
 const Footer: FC = () => {
   return (
-    <footer className="bg-black text-[#eff5ffb5] py-8">
+    <footer className="bg-black text-[#eff5ffb5] py-8 mt-16">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-start md:items-center px-4">
         <div className="flex space-x-4 mb-8 md:mb-0">
           <Link href="#" aria-label="Twitter">
