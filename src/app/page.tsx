@@ -1,3 +1,4 @@
+import Footer from "@/components/footer";
 import {AnimatedGradientTextDemo} from "../components/AnimatedGradientTextDemo";
 import GridPatternDashed from "@/components/magicui/display/dash";
 import Roadmap from "@/components/roadmap";
@@ -8,6 +9,7 @@ export default function Home() {
    <>
    <GridPatternDashed/>
     <Roadmap/>
+    <Footer/>
    </>
   );
 }

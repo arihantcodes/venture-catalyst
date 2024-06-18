@@ -20,9 +20,7 @@ const Navbar = () => {
           <Link href="/about">
             <span className="text-gray-700 hover:text-gray-900 cursor-pointer">About</span>
           </Link>
-          <Link href="/blog">
-            <span className="text-gray-700 hover:text-gray-900 cursor-pointer">Blog</span>
-          </Link>
+          
           <Link href="/customers">
             <span className="text-gray-700 hover:text-gray-900 cursor-pointer">Customers</span>
           </Link>
@@ -48,9 +46,7 @@ const Navbar = () => {
           <Link href="/about">
             <span className="text-gray-700 hover:text-gray-900 cursor-pointer">About</span>
           </Link>
-          <Link href="/blog">
-            <span className="text-gray-700 hover:text-gray-900 cursor-pointer">Blog</span>
-          </Link>
+         
           <Link href="/customers">
             <span className="text-gray-700 hover:text-gray-900 cursor-pointer">Customers</span>
           </Link>
