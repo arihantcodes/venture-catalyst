@@ -1,7 +1,10 @@
 "use client";
 import { cn } from "@/utils/cn";
 import React from "react";
-import { BentoGrid, BentoGridItem } from "@/components/magicui/aceternity/bentogrid";
+import {
+  BentoGrid,
+  BentoGridItem,
+} from "@/components/magicui/aceternity/bentogrid";
 import {
   IconBoxAlignRightFilled,
   IconClipboardCopy,
@@ -299,10 +302,11 @@ const SkeletonFive = () => {
 };
 const items = [
   {
-    title: "AI Content Generation",
+    title: "Mentorship and Expert Advice",
     description: (
       <span className="text-sm">
-        Experience the power of AI in generating unique content.
+        Offer mentorship from experienced entrepreneurs and experts in various
+        fields, providing guidance and support tailored to the needs of members.
       </span>
     ),
     header: <SkeletonOne />,
@@ -310,10 +314,11 @@ const items = [
     icon: <IconClipboardCopy className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "Automated Proofreading",
+    title: "Networking Opportunities",
     description: (
       <span className="text-sm">
-        Let AI handle the proofreading of your documents.
+        Facilitate networking with like-minded entrepreneurs, potential
+        collaborators, and investors through events, forums, and meetups.
       </span>
     ),
     header: <SkeletonTwo />,
@@ -321,10 +326,12 @@ const items = [
     icon: <IconFileBroken className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "Contextual Suggestions",
+    title: "Diverse Perspectives and Insights",
     description: (
       <span className="text-sm">
-        Get AI-powered suggestions based on your writing context.
+        Benefit from diverse perspectives and insights from a global community
+        of entrepreneurs, enabling members to learn from each other's successes
+        and challenges.
       </span>
     ),
     header: <SkeletonThree />,
@@ -332,10 +339,12 @@ const items = [
     icon: <IconSignature className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "Sentiment Analysis",
+    title: "Community Support and Collaboration",
     description: (
       <span className="text-sm">
-        Understand the sentiment of your text with AI analysis.
+        Foster a supportive community where members can share knowledge,
+        exchange ideas, and collaborate on projects, fostering a culture of
+        mutual support and growth.
       </span>
     ),
     header: <SkeletonFour />,
@@ -344,10 +353,11 @@ const items = [
   },
 
   {
-    title: "Text Summarization",
+    title: "Access to Valuable Resources",
     description: (
       <span className="text-sm">
-        Summarize your lengthy documents with AI technology.
+        Provide access to a wealth of resources, including tools, templates, and
+        guides that can help entrepreneurs start and grow their businesses.
       </span>
     ),
     header: <SkeletonFive />,
