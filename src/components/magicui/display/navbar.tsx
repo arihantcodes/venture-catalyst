@@ -17,19 +17,19 @@ const Navbar = () => {
           <span className="font-bold text-xl">VentureCatalyst</span>
         </div>
         <div className="hidden md:flex space-x-8">
-          <Link href="/about">
+          <Link href="/">
             <span className="text-gray-700 hover:text-gray-900 cursor-pointer">About</span>
           </Link>
           
-          <Link href="/customers">
+          <Link href="/">
             <span className="text-gray-700 hover:text-gray-900 cursor-pointer">Customers</span>
           </Link>
-          <Link href="/pricing">
+          <Link href="/">
             <span className="text-gray-700 hover:text-gray-900 cursor-pointer">Pricing</span>
           </Link>
         </div>
         <div className="hidden md:block">
-          <Link href="/get-started">
+          <Link href="/">
             <button className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800">
               Get Started
             </button>
@@ -43,17 +43,17 @@ const Navbar = () => {
       </div>
       {isOpen && (
         <div className="md:hidden flex flex-col space-y-4 mt-4">
-          <Link href="/about">
+          <Link href="/">
             <span className="text-gray-700 hover:text-gray-900 cursor-pointer">About</span>
           </Link>
          
-          <Link href="/customers">
+          <Link href="/">
             <span className="text-gray-700 hover:text-gray-900 cursor-pointer">Customers</span>
           </Link>
-          <Link href="/pricing">
+          <Link href="/">
             <span className="text-gray-700 hover:text-gray-900 cursor-pointer">Pricing</span>
           </Link>
-          <Link href="/get-started">
+          <Link href="/">
             <button className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800">
               Get Started
             </button>

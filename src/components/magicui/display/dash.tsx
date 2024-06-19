@@ -28,17 +28,8 @@ const GridBackgroundDemo = () => {
     }
   };
 
-
-      
   const handleClick = () => {
-
-
-
     handlejoin();
-
-
-
-
 
     const duration = 5 * 1000;
     const animationEnd = Date.now() + duration;
@@ -67,7 +58,6 @@ const GridBackgroundDemo = () => {
       });
     }, 250);
   };
-
 
   return (
     <div>
@@ -98,14 +88,14 @@ const GridBackgroundDemo = () => {
           className="w-60 md:w-80 text-white"
         />
         <div className="relative">
-        <Button
-          onClick={handleClick}
-          variant={"outline"}
-          className="text-white"
-          disabled={!email} 
-        >
-          Join The Community
-        </Button>
+          <Button
+            onClick={handleClick}
+            variant={"outline"}
+            className="text-white"
+            disabled={!email}
+          >
+            Join The Community
+          </Button>
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 ">

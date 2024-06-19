@@ -1,23 +1,21 @@
 import { FC } from "react";
 import Link from "next/link";
-import { FaTwitter, FaGithub, FaLinkedin, FaDiscord } from "react-icons/fa";
+import { FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
 
 const Footer: FC = () => {
   return (
     <footer className="bg-black text-[#eff5ffb5] py-12 mt-16">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-start md:items-center px-6">
         <div className="flex space-x-6 mb-8 md:mb-0">
-          <Link href="#" aria-label="Twitter">
+          <Link target="_blank" href="https://x.com/vcatalystweb?s=11" aria-label="Twitter">
             <FaTwitter className="h-6 w-6 hover:text-blue-500 transition-colors duration-300" />
           </Link>
-          <Link href="#" aria-label="GitHub">
-            <FaGithub className="h-6 w-6 hover:text-gray-500 transition-colors duration-300" />
-          </Link>
-          <Link href="#" aria-label="LinkedIn">
+         
+          <Link target="_blank" href="https://www.linkedin.com/company/vcatalyst-web/" aria-label="LinkedIn">
             <FaLinkedin className="h-6 w-6 hover:text-blue-700 transition-colors duration-300" />
           </Link>
-          <Link href="#" aria-label="Discord">
-            <FaDiscord className="h-6 w-6 hover:text-indigo-500 transition-colors duration-300" />
+          <Link target="_blank" href="https://www.instagram.com/vcatalyst.web?igsh=YWZ6dDhncDVkYzBu&utm_source=qr" aria-label="Discord">
+            <FaInstagram className="h-6 w-6 hover:text-indigo-500 transition-colors duration-300" />
           </Link>
         </div>
         <div className="flex flex-wrap justify-between w-full md:w-auto">
