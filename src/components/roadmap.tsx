@@ -19,7 +19,7 @@ const Roadmap = () => {
       <div className="w-16 h-16 mb-8">
         <Image src="/squre.svg" alt="Rocket" width={64} height={64} />
       </div>
-      <div className="relative">
+      <div className="relative flex flex-col">
         <Image
           src="/roadmap.svg"
           alt="Roadmap"
