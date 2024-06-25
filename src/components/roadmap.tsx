@@ -2,6 +2,8 @@
 import Image from "next/image";
 import React from "react";
 
+// display roadmap.svg when on md and above and contnet.svg when on sm and below
+
 const Roadmap = () => {
   return (
     <div className="flex flex-col items-center py-10 px-4 md:px-10 lg:px-20 mt-16 bg-black text-white">
@@ -18,8 +20,16 @@ const Roadmap = () => {
         <Image src="/squre.svg" alt="Rocket" width={64} height={64} />
       </div>
       <div className="relative">
-        <Image src="/roadmap.svg" alt="Roadmap" width={1200} height={400} />
-        
+        <Image
+          src="/roadmap.svg"
+          alt="Roadmap"
+          className="md:block hidden"
+          width={1200}
+          height={400}
+        />
+        <div className="md:hidden block ">
+          <Image src="/content.svg" alt="Content" width={1200} height={400} />
+        </div>
       </div>
     </div>
   );
