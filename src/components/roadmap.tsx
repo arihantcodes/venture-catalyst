@@ -28,7 +28,7 @@ const Roadmap = () => {
           height={400}
         />
         <div className="md:hidden block ">
-          <Image src="/content.svg" alt="Content" width={200} height={200} />
+          <Image src="/Content.svg" alt="Content" width={200} height={200} />
         </div>
       </div>
     </div>
