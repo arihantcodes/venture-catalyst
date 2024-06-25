@@ -34,7 +34,7 @@ export default function Login() {
                 password: user.password
             });
             toast.success('Logged in successfully!');
-            router.push('/login'); // Redirect to dashboard or any other page after login
+            router.push('/profile'); // Redirect to dashboard or any other page after login
             console.log(response.data); // handle success response
         } catch (error) {
             console.error('Error:', error.message);
