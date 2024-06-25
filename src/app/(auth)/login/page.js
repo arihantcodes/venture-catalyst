@@ -97,10 +97,10 @@ export default function Login() {
                                     Sign in with Google
                                 </button>
                                 <button className="w-full py-2 bg-gray-700 text-white font-bold rounded-lg focus:outline-none">
-                                    Sign in with Apple Account
+                                    Sign in with Github
                                 </button>
                                 <button className="w-full py-2 bg-gray-700 text-white font-bold rounded-lg focus:outline-none">
-                                    Sign in with Facebook
+                                    Sign in with Apple Account
                                 </button>
                             </div>
                         </div>
