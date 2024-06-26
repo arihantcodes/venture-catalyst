@@ -34,7 +34,7 @@ export default function SignUp() {
             console.log(response.data); // handle success response
         } catch (error) {
             console.error("Error:", error.response.data);
-            toast.error("Failed to register user!");
+            toast.error("Failed to login user!");
         } finally {
             setLoading(false);
         }
