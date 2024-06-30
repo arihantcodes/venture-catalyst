@@ -92,7 +92,7 @@ export default function SignUp() {
                             >
                                 {loading ? <ClipLoader size={20} color="#ffffff" /> : "Login"}
                             </button>
-                            <Link className="text-gray-400 underline mt-4" href="/login">
+                            <Link className="text-gray-400 underline mt-4" href="/signup">
                                 Don't have an account signup Now! 
                              </Link>
                         </form>
