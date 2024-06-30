@@ -1,12 +1,13 @@
-import { connectDb } from '../../../../../dbConfig/dbConfig.js';
-import User from '../../../../../models/user.model.js';
-import { NextRequest, NextResponse } from 'next/server';
-import bcryptjs from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import {connectDb} from '../../../../dbconfig/dbConfig.js'
+import User from '../../../../models/user.model.js'
+import { NextRequest,NextResponse} from 'next/server'
+import bcryptjs from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 
-connectDb();
+connectDb()
 
 
+//login route
 export async function POST(request:NextRequest) {
     try {
         const reqBody = await request.json()
@@ -35,7 +36,7 @@ export async function POST(request:NextRequest) {
             username:user.username,
         }
 
-        const token = jwt.sign(tokenData, process.env.TOKEN_SECRET!, { expiresIn: '1d' })
+        const token = jwt.sign(tokenData, process.env.TOKEN_SECRET, { expiresIn: '1d' })
 
 
         const response =  NextResponse.json({message:'Login successful',success:true})
@@ -44,7 +45,7 @@ export async function POST(request:NextRequest) {
 
         return response
 
-    } catch (error:any) {
+    } catch (error) {
         console.log(error);
         return NextResponse.json(error.message, {status: 500})
     }
