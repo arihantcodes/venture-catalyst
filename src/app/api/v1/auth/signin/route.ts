@@ -1,7 +1,8 @@
-import {connectDb} from '../../../../dbConfig/dbConfig.js'
-import User from '../../../../models/user.model.js'
-import { NextRequest,NextResponse} from 'next/server'
-import bcryptjs from 'bcryptjs'
+import { connectDb } from '../../../../../dbConfig/dbConfig.js';
+import User from '../../../../../models/user.model.js';
+import { NextRequest, NextResponse } from 'next/server';
+import bcryptjs from 'bcryptjs';
+
 import jwt from 'jsonwebtoken'
 
 connectDb()
