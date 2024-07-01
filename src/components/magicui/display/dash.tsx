@@ -7,8 +7,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import confetti from "canvas-confetti";
 import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const GridBackgroundDemo = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -29,34 +31,7 @@ const GridBackgroundDemo = () => {
   };
 
   const handleClick = () => {
-    handlejoin();
-
-    const duration = 5 * 1000;
-    const animationEnd = Date.now() + duration;
-    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-
-    const randomInRange = (min: number, max: number) =>
-      Math.random() * (max - min) + min;
-
-    const interval = window.setInterval(() => {
-      const timeLeft = animationEnd - Date.now();
-
-      if (timeLeft <= 0) {
-        return clearInterval(interval);
-      }
-
-      const particleCount = 50 * (timeLeft / duration);
-      confetti({
-        ...defaults,
-        particleCount,
-        origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
-      });
-      confetti({
-        ...defaults,
-        particleCount,
-        origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
-      });
-    }, 250);
+   router.push("/signup");
   };
 
   return (
@@ -80,19 +55,13 @@ const GridBackgroundDemo = () => {
         </p>
       </div>
       <div className="flex flex-col items-center mt-4 md:flex-row justify-center gap-4">
-        <Input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          className="w-60 md:w-80 text-white"
-        />
+       
         <div className="relative">
           <Button
             onClick={handleClick}
             variant={"outline"}
             className="text-white"
-            disabled={!email}
+            
           >
             Join The Community
           </Button>
