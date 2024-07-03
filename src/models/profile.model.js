@@ -1,3 +1,4 @@
+import { match } from 'assert';
 import mongoose from 'mongoose';
 
 const profileSchema = new mongoose.Schema(
@@ -12,6 +13,7 @@ const profileSchema = new mongoose.Schema(
             type: String,
             trim: true,
             maxLength: [160, "Bio must be at most 160 characters long"],
+            minLength: [10, "Bio must be at least 10 characters long"],
         },
         profilePictureUrl: {
             type: String,
@@ -21,9 +23,14 @@ const profileSchema = new mongoose.Schema(
             type: String,
             trim: true,
         },
-        linkedin: {
+        linkedinUrl: {
             type: String,
+            lowerCase: true,
             trim: true,
+            match: [
+                /^(https?:\/\/)?(www\.)?linkedin\.com\/(pub|in|profile)\/[a-zA-Z0-9_-]+\/?$/,
+                "Please enter a valid LinkedIn URL",
+            ],
         },
         badges: {
             type: [String],

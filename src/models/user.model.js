@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema(
         email: {
             type: String,
             required: true,
+            lowerCase: true,
             trim: true,
             unique: true,
             match: [/.+\@.+\..+/, "Please fill a valid email address"]
@@ -23,6 +24,7 @@ const userSchema = new mongoose.Schema(
         username: {
             type: String,
             required: true,
+            lowerCase: true,
             unique: true,
             trim: true,
             maxLength: [20, "Username must be at most 20 characters long"],
