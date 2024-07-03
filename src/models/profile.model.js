@@ -19,9 +19,13 @@ const profileSchema = new mongoose.Schema(
             type: String,
             trim: true,
         },
-        website: {
+        ventureName: {
             type: String,
             trim: true,
+            required: [true, "Please enter your venture name"],
+            minLength: [3, "Venture name must be at least 3 characters long"],
+            maxLength: [70, "Venture name must be at most 70 characters long"],
+            
         },
         linkedinUrl: {
             type: String,

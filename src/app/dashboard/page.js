@@ -3,6 +3,9 @@ import Image from 'next/image';
 import Sidebar from '../../components/Sidebar';
 
 export default function Profile() {
+
+  // show user data on dashboard page fetch from api profile data
+
   return (
     <div className="min-h-screen bg-black text-white flex flex-col sm:flex-row">
       <Head>
