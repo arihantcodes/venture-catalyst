@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import bcryptjs from 'bcryptjs';
 
 import jwt from 'jsonwebtoken'
+import Profile from '@/models/profile.model.js';
 
 connectDb()
 
@@ -39,8 +40,22 @@ export async function POST(request:NextRequest) {
 
         const token = jwt.sign(tokenData, process.env.TOKEN_SECRET!, { expiresIn: '1d' })
 
+        // check if user has a profile if not redirect to profile creation page other wise on dashboard 
 
-        const response =  NextResponse.json({message:'Login successful',success:true})
+        const profile = await Profile.findOne({userId:user._id})
+
+        let hasProfile;
+
+        if(!profile){
+             hasProfile = false
+        }else{
+             hasProfile = true
+        }
+
+
+
+
+        const response =  NextResponse.json({message:'Login successful',success:true ,hasProfile},{status:200})
 
         response.cookies.set("token",token,{httpOnly:true})
 
