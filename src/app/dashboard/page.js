@@ -19,6 +19,8 @@ export default function Dashboard() {
 
   // show user data on dashboard page fetch from api profile data
 
+
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -32,7 +34,11 @@ export default function Dashboard() {
     fetchUserData();
   }, []);
 
+  
+
   const { fullname, bio, ventureName, linkedinUrl, username } = userData;
+
+
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col sm:flex-row">

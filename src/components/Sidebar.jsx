@@ -2,10 +2,30 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import toast ,{Toaster} from 'react-hot-toast';
 
 export default function Sidebar() {
+
+  const router = useRouter(); 
+
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleLogout = async () => {
+    try {
+      
+      const response = await axios.get('/api/v1/auth/logout');
+      toast.success('Logged out successfully');
+      if (response.status === 200) {
+        // Redirect to login page
+        router.push('/');
+      }
+    } catch (error) {
+      console.error('Error logging out:', error);
+      toast.error('Error logging out');
+    }
+  }
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -65,11 +85,18 @@ export default function Sidebar() {
             </Link>
           </nav>
         </div>
+        
         <div className="absolute bottom-0 left-0 flex flex-col right-0 p-4">
+            <button 
+            onClick={handleLogout}
+            className='bg-red-600 p-2 m-3 text-white rounded-lg ' >
+              Logout
+            </button>
             <span className="text-center text-sm">© 2024 VCatalyst</span>
             <span className="text-center text-sm">V 0.0.2</span>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 }
