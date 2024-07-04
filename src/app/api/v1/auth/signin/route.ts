@@ -38,7 +38,7 @@ export async function POST(request:NextRequest) {
             username:user.username,
         }
 
-        const token = jwt.sign(tokenData, process.env.TOKEN_SECRET!, { expiresIn: '1d' })
+        const token = jwt.sign(tokenData, process.env.TOKEN_SECRET!, { expiresIn: '7d' })
 
         // check if user has a profile if not redirect to profile creation page other wise on dashboard 
 

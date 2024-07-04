@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import toast ,{Toaster} from 'react-hot-toast';
 
-export default function Sidebar() {
+const Sidebar =() => {
 
   const router = useRouter(); 
 
@@ -70,15 +70,18 @@ export default function Sidebar() {
       <div className={`min-h-screen w-[15rem] border-r border-gray-700 mr-10 bg-black text-white p-4 transition-transform transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 fixed md:relative z-10`}>
         <div className="flex flex-col items-center ml-8 md:block">
           <Image src="/Vector.svg" alt="Profile Picture" width={96} height={96} className="rounded-full mb-10" />
-          <Link href="/" passHref>
+          {/* <Link href="/" passHref>
             <span className="text-xl font-bold mb-4 cursor-pointer">VCatalyst</span>
-          </Link>
+          </Link> */}
           <nav className="space-y-4">
             <Link href="/roadmap" passHref>
               <span className="flex text-xl items-center space-x-2 hover:bg-gray-700 p-2 rounded-md cursor-pointer">Road-Map</span>
             </Link>
-            <Link href="/profile" passHref>
-              <span className="flex text-xl items-center space-x-2 hover:bg-gray-700 p-2 rounded-md cursor-pointer">Profile</span>
+            <Link href="/module" passHref>
+              <span className="flex text-xl items-center space-x-2 hover:bg-gray-700 p-2 rounded-md cursor-pointer">Module</span>
+            </Link>
+            <Link href="/explore" passHref>
+              <span className="flex text-xl items-center space-x-2 hover:bg-gray-700 p-2 rounded-md cursor-pointer">Explore</span>
             </Link>
             <Link href="/share" passHref>
               <span className="flex text-xl items-center space-x-2 hover:bg-gray-700 p-2 rounded-md cursor-pointer">Share</span>
@@ -89,7 +92,7 @@ export default function Sidebar() {
         <div className="absolute bottom-0 left-0 flex flex-col right-0 p-4">
             <button 
             onClick={handleLogout}
-            className='bg-red-600 p-2 m-3 text-white rounded-lg ' >
+            className='bg-red-600 text-lg p-2 m-3 text-white rounded-lg ' >
               Logout
             </button>
             <span className="text-center text-sm">© 2024 VCatalyst</span>
@@ -100,3 +103,7 @@ export default function Sidebar() {
     </div>
   );
 }
+
+
+
+export default Sidebar;
