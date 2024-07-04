@@ -83,6 +83,11 @@ const Sidebar =() => {
           <Link href="/share" passHref>
             <span className="flex text-xl items-center space-x-2 hover:bg-gray-700 p-2 rounded-md cursor-pointer">Share</span>
           </Link>
+          <button
+          onClick={handleLogout}
+          className='block md:hidden bg-red-500 hover:bg-red-700 rounded-lg text-white ' >
+            <span className="flex text-xl items-center space-x-2 p-2 rounded-md cursor-pointer">Logout</span>
+          </button>
         </nav>
       </div>
   
@@ -98,7 +103,7 @@ const Sidebar =() => {
       <div className="absolute bottom-0 left-0 flex flex-col right-0 p-4">
         <button 
           onClick={handleLogout}
-          className='bg-red-600 text-lg p-2 m-3 text-white rounded-lg'>
+          className=' hidden md:block  bg-red-600 text-lg p-2 m-3 text-white rounded-lg'>
           Logout
         </button>
         <span className="text-center text-sm">© 2024 VCatalyst</span>
