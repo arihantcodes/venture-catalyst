@@ -3,10 +3,7 @@ import Image from 'next/image';
 import Sidebar from '../../components/Sidebar';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import {  Linkedin } from 'lucide-react'
-import { Link } from 'next/link';
-
-
+import { Linkedin } from 'lucide-react';
 
 export default function Dashboard() {
   const [userData, setUserData] = useState({
@@ -14,7 +11,8 @@ export default function Dashboard() {
     bio: '',
     ventureName: '',
     linkedinUrl: '',
-    username: ''
+    username: '',
+    profilePictureUrl: '',
   });
 
   useEffect(() => {
@@ -41,7 +39,7 @@ export default function Dashboard() {
     }
   }, []);
 
-  const { fullname, bio, ventureName, linkedinUrl, username } = userData;
+  const { fullname, bio, ventureName, linkedinUrl, username, profilePictureUrl } = userData;
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col sm:flex-row">
@@ -52,7 +50,11 @@ export default function Dashboard() {
             <h1 className="text-xl font-bold bg-gradient-to-tr from-yellow-400 to-pink-800 text-transparent bg-clip-text">User Details</h1>
             <div className="flex flex-col items-center p-4 bg-white text-black text-lg rounded-lg sm:flex-row sm:items-start sm:space-x-4">
               <div className="flex-shrink-0">
-                <Image src="/peter.png" alt="Profile Picture" width={106} height={106} className="rounded-full border-2" />
+                {profilePictureUrl ? (
+                  <Image src={profilePictureUrl} alt="Profile Picture" width={106} height={106} className="rounded-full border-2" />
+                ) : (
+                  <Image src='/peter.png' className="rounded-full border-2 p-4 text-center" width={106} height={106} />
+                )}
               </div>
               <div className="text-center sm:text-left">
                 {fullname && <h1 className="text-3xl font-bold bg-gradient-to-tr from-pink-400 to-pink-800 text-transparent bg-clip-text">{fullname}</h1>}
@@ -77,7 +79,7 @@ export default function Dashboard() {
 
           <div className="flex flex-col items-center justify-center mt-10 sm:mt-0">
             <h1 className="text-4xl mb-8 text-center font-bold text-[#B32AC2]">Level</h1>
-            <Image src='/level.svg' width={400} height={400} className='' />
+            <Image src='/level.svg' width={400} height={400} className='' alt="Level" />
           </div>
         </div>
       </div>

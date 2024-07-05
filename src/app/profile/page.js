@@ -3,7 +3,7 @@ import Image from "next/image";
 import axios from "axios";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { ClipLoader } from "react-spinners";
 
 export default function Profile() {
@@ -13,7 +13,7 @@ export default function Profile() {
         bio: "",
         linkedinUrl: "",
         ventureName: "",
-        profilePictureUrl: null, // Add profilePic state to hold the uploaded file
+        profilePic: null, // Add profilePic state to hold the uploaded file
     });
 
     const handleChange = (e) => {
@@ -21,7 +21,7 @@ export default function Profile() {
         if (name === "profilePic") {
             setFormData({
                 ...formData,
-                profilePictureUrl: files[0], // Update profilePic state with the selected file
+                profilePic: files[0], // Update profilePic state with the selected file
             });
         } else {
             setFormData({
@@ -39,7 +39,7 @@ export default function Profile() {
             formDataUpload.append("bio", formData.bio);
             formDataUpload.append("ventureName", formData.ventureName);
             formDataUpload.append("linkedinUrl", formData.linkedinUrl);
-            formDataUpload.append("profilePictureUrl", formData.profilePictureUrl); // Append profilePic to FormData
+            formDataUpload.append("profilePic", formData.profilePic); // Append profilePic to FormData
 
             const response = await axios.post("/api/v1/auth/profile", formDataUpload);
             toast.success("User Profile Created successfully!");
@@ -108,13 +108,15 @@ export default function Profile() {
                             <div>
                                 <input
                                     type="file"
-                                    name="profilePictureUrl"
+                                    name="profilePic"
                                     onChange={handleChange}
-                                    className="py-2"
+                                    
                                     accept="image/*"
                                     placeholder="Profile Picture"
                                     required
+                                    className="w-full px-3 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                 />
+                                <span className="text-white">Profile Picture</span>
                             </div>
                             <button
                                 type="submit"
