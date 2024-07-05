@@ -7,16 +7,18 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { ClipLoader } from "react-spinners";
-import { SignIn } from "@clerk/nextjs";
-export default function Login() {
+
+export default function page() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
+        fullname: "",
+        username: "",
         email: "",
         password: "",
     });
 
-    const handleChange = (e) => {
+    const handleChange = (e:any) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -24,23 +26,17 @@ export default function Login() {
         });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e:any) => {
         e.preventDefault();
         setLoading(true);
         try {
-            const response = await axios.post("/api/v1/auth/signin", formData);
-            toast.success("User Login successful!");
-
-            if (response.data.hasProfile) {
-                router.push("/dashboard");
-            } else {
-                router.push("/profile");
-            }
-
+            const response = await axios.post("/api/v1/auth/signup", formData);
+            toast.success("User registered successfully!");
+            router.push("/login");
             console.log(response.data); // handle success response
-        } catch (error) {
+        } catch (error:any) {
             console.error("Error:", error.response.data);
-            toast.error("Error:", error.response.data);
+            toast.error("Failed to register user!");
         } finally {
             setLoading(false);
         }
@@ -49,7 +45,7 @@ export default function Login() {
     return (
         <>
             <Head>
-                <title>Login</title>
+                <title>Sign Up</title>
             </Head>
             <div className="min-h-screen flex flex-col items-center justify-center bg-black relative">
                 <Image
@@ -58,18 +54,39 @@ export default function Login() {
                     height={500}
                     objectFit="cover"
                     className="z-0 absolute"
+                    alt="cube"
                 />
 
                 <div className="z-10 relative bg-opacity-80 p-10 rounded-lg">
                     <h2 className="text-3xl text-center font-bold text-white mb-2">
-                        Login
+                        Sign up
                     </h2>
                     <p className="text-lg text-center text-gray-400 mb-6">
-                        Welcome back! Login to your account
+                        New here? Sign up now
                     </p>
 
-                    <div className="flex flex-col md:flex-row justify-evenly gap-10 ">
+                    <div className="flex flex-col md:flex-row justify-evenly gap-10">
                         <form className="space-y-6 w-full md:w-1/2" onSubmit={handleSubmit}>
+                            <div>
+                                <input
+                                    type="text"
+                                    name="fullname"
+                                    value={formData.fullname}
+                                    onChange={handleChange}
+                                    className="w-full px-3 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                    placeholder="Full Name"
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    type="text"
+                                    name="username"
+                                    value={formData.username}
+                                    onChange={handleChange}
+                                    className="w-full px-3 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                    placeholder="User Name"
+                                />
+                            </div>
                             <div>
                                 <input
                                     type="email"
@@ -95,19 +112,18 @@ export default function Login() {
                                 className="w-full py-3 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white font-bold rounded-lg focus:outline-none"
                                 disabled={loading}
                             >
-                                {loading ? <ClipLoader size={20} color="#ffffff" /> : "Login"}
+                                {loading ? <ClipLoader size={20} color="#ffffff" /> : "Sign Up"}
                             </button>
-                            <Link href="/sign-up" className="text-white z-100 cursor-pointer text-lg underline mt-8">
-                                Don't have an account? Sign up Now!
-                            </Link>
+                            <Link className="text-white text-md md:text-lg  underline mt-4" href="/login">
+                                Already have an account! Login now! 
+                             </Link>
                         </form>
                         <div className="text-center w-full md:w-1/2">
-                        <SignIn />
+                        
                         </div>
                     </div>
                 </div>
                 <Toaster />
-
             </div>
         </>
     );

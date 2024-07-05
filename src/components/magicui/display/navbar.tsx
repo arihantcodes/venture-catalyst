@@ -29,7 +29,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="hidden md:block">
-          <Link href="/sign-up">
+          <Link href="/signup">
             <button className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800">
               Get Started
             </button>
@@ -53,7 +53,7 @@ const Navbar = () => {
           <Link href="/">
             <span className="text-gray-700 hover:text-gray-900 cursor-pointer">Pricing</span>
           </Link>
-          <Link href="/sign-up">
+          <Link href="/signup">
             <button className="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800">
               Get Started
             </button>

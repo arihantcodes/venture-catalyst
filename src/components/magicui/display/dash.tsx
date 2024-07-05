@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import confetti from "canvas-confetti";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import  Link  from "next/link";
 
 const GridBackgroundDemo = () => {
   const router = useRouter();
@@ -28,10 +29,6 @@ const GridBackgroundDemo = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleClick = () => {
-   router.push("/dashboard");
   };
 
   return (
@@ -55,16 +52,15 @@ const GridBackgroundDemo = () => {
         </p>
       </div>
       <div className="flex flex-col items-center mt-4 md:flex-row justify-center gap-4">
-       
         <div className="relative">
-          <Button
-            onClick={handleClick}
-            variant={"outline"}
-            className=" w-full py-3 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white font-bold rounded-lg focus:outline-none"
- 
-          >
-            Join The Community
-          </Button>
+          <Link href="/dashboard">
+            <Button
+              variant={"outline"}
+              className=" w-full py-3 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white font-bold rounded-lg focus:outline-none"
+            >
+              Join The Community
+            </Button>
+          </Link>
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 ">
