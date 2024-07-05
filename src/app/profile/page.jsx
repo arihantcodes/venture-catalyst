@@ -1,5 +1,4 @@
 "use client"
-
 import Image from "next/image";
 import axios from "axios";
 import { useState } from "react";
@@ -14,21 +13,35 @@ export default function Profile() {
         bio: "",
         linkedinUrl: "",
         ventureName: "",
+        profilePic: null, // Add profilePic state to hold the uploaded file
     });
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
+        const { name, value, files } = e.target;
+        if (name === "profilePic") {
+            setFormData({
+                ...formData,
+                profilePic: files[0], // Update profilePic state with the selected file
+            });
+        } else {
+            setFormData({
+                ...formData,
+                [name]: value,
+            });
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         try {
-            const response = await axios.post("/api/v1/auth/profile", formData);
+            const formDataUpload = new FormData();
+            formDataUpload.append("bio", formData.bio);
+            formDataUpload.append("ventureName", formData.ventureName);
+            formDataUpload.append("linkedinUrl", formData.linkedinUrl);
+            formDataUpload.append("profilePic", formData.profilePic); // Append profilePic to FormData
+
+            const response = await axios.post("/api/v1/auth/profile", formDataUpload);
             toast.success("User Profile Created successfully!");
             router.push("/dashboard");
             console.log(response.data); // handle success response
@@ -68,6 +81,7 @@ export default function Profile() {
                                     onChange={handleChange}
                                     className="w-full px-3 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                     placeholder="Venture Name"
+                                    required
                                 />
                             </div>
                             <div>
@@ -78,6 +92,7 @@ export default function Profile() {
                                     onChange={handleChange}
                                     className="w-full px-3 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                     placeholder="LinkedIn URL"
+                                    required
                                 />
                             </div>
                             <div>
@@ -87,7 +102,21 @@ export default function Profile() {
                                     onChange={handleChange}
                                     className="w-full h-[150px] px-3 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                     placeholder="Bio"
+                                    required
                                 />
+                            </div>
+                            <div>
+                                <input
+                                    type="file"
+                                    name="profilePic"
+                                    onChange={handleChange}
+                                    
+                                    accept="image/*"
+                                    placeholder="Profile Picture"
+                                    required
+                                    className="w-full px-3 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                />
+                                <span className="text-white">Profile Picture</span>
                             </div>
                             <button
                                 type="submit"
