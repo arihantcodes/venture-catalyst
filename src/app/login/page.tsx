@@ -49,7 +49,7 @@ export default function Login() {
   return (
     <>
       <Head>
-        <title>Login</title>
+        <title>Welcome Back</title>
       </Head>
       <div className="min-h-screen flex flex-col items-center justify-center bg-black relative">
         <Image
