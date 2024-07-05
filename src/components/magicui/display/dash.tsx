@@ -31,7 +31,7 @@ const GridBackgroundDemo = () => {
   };
 
   const handleClick = () => {
-   router.push("/signup");
+   router.push("/dashboard");
   };
 
   return (
@@ -60,7 +60,8 @@ const GridBackgroundDemo = () => {
           <Button
             onClick={handleClick}
             variant={"outline"}
-            className="text-white"
+            className=" w-full py-3 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white font-bold rounded-lg focus:outline-none"
+            
             
           >
             Join The Community

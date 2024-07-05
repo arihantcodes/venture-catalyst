@@ -113,12 +113,12 @@ export default function SignUp() {
                             >
                                 {loading ? <ClipLoader size={20} color="#ffffff" /> : "Sign Up"}
                             </button>
-                            <Link className="text-gray-400 underline mt-4" href="/login">
+                            <Link className="text-white text-md md:text-lg  underline mt-4" href="/login">
                                 Already have an account! Login now! 
                              </Link>
                         </form>
                         <div className="text-center w-full md:w-1/2">
-                            <p className="text-gray-400">Or sign in using</p>
+                            <p className="text-gray-400">OR sign in using</p>
                             <div className="mt-4 space-y-2">
                                 <button className="w-full py-2 bg-gray-700 text-white font-bold rounded-lg focus:outline-none">
                                     Sign in with Google

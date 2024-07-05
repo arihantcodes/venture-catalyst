@@ -8,7 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { ClipLoader } from "react-spinners";
 
-export default function SignUp() {
+export default function Login() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
@@ -29,14 +29,13 @@ export default function SignUp() {
         setLoading(true);
         try {
             const response = await axios.post("/api/v1/auth/signin", formData);
-            toast.success("User Login  successful!");
+            toast.success("User Login successful!");
 
             if (response.data.hasProfile) {
                 router.push("/dashboard");
             } else {
                 router.push("/profile");
             }
-
 
             console.log(response.data); // handle success response
         } catch (error) {
@@ -71,7 +70,6 @@ export default function SignUp() {
 
                     <div className="flex flex-col md:flex-row justify-evenly gap-10">
                         <form className="space-y-6 w-full md:w-1/2" onSubmit={handleSubmit}>
-                            
                             <div>
                                 <input
                                     type="email"
@@ -99,13 +97,12 @@ export default function SignUp() {
                             >
                                 {loading ? <ClipLoader size={20} color="#ffffff" /> : "Login"}
                             </button>
-                            <Link className="text-gray-400 underline mt-4" href="/signup">
-                                Don't have an account signup Now! 
-                             </Link>
+                            <Link href="/signup" className="text-white z-100 cursor-pointer text-lg underline mt-8">
+                                Don't have an account? Sign up Now!
+                            </Link>
                         </form>
                         <div className="text-center w-full md:w-1/2">
-                            <p className="text-gray-400">Or sign in using</p>
-                            <div className="mt-4 space-y-2">
+                            <div className="space-y-5">
                                 <button className="w-full py-2 bg-gray-700 text-white font-bold rounded-lg focus:outline-none">
                                     Sign in with Google
                                 </button>
@@ -120,6 +117,7 @@ export default function SignUp() {
                     </div>
                 </div>
                 <Toaster />
+
             </div>
         </>
     );
