@@ -7,13 +7,11 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { ClipLoader } from "react-spinners";
-
-export default function SignUp() {
+import { SignIn } from "@clerk/nextjs";
+export default function Login() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
-        fullname: "",
-        username: "",
         email: "",
         password: "",
     });
@@ -30,13 +28,19 @@ export default function SignUp() {
         e.preventDefault();
         setLoading(true);
         try {
-            const response = await axios.post("/api/v1/auth/signup", formData);
-            toast.success("User registered successfully!");
-            router.push("/login");
+            const response = await axios.post("/api/v1/auth/signin", formData);
+            toast.success("User Login successful!");
+
+            if (response.data.hasProfile) {
+                router.push("/dashboard");
+            } else {
+                router.push("/profile");
+            }
+
             console.log(response.data); // handle success response
         } catch (error) {
             console.error("Error:", error.response.data);
-            toast.error("Failed to register user!");
+            toast.error("Error:", error.response.data);
         } finally {
             setLoading(false);
         }
@@ -45,7 +49,7 @@ export default function SignUp() {
     return (
         <>
             <Head>
-                <title>Sign Up</title>
+                <title>Login</title>
             </Head>
             <div className="min-h-screen flex flex-col items-center justify-center bg-black relative">
                 <Image
@@ -58,34 +62,14 @@ export default function SignUp() {
 
                 <div className="z-10 relative bg-opacity-80 p-10 rounded-lg">
                     <h2 className="text-3xl text-center font-bold text-white mb-2">
-                        Sign up
+                        Login
                     </h2>
                     <p className="text-lg text-center text-gray-400 mb-6">
-                        New here? Sign up now
+                        Welcome back! Login to your account
                     </p>
 
-                    <div className="flex flex-col md:flex-row justify-evenly gap-10">
+                    <div className="flex flex-col md:flex-row justify-evenly gap-10 ">
                         <form className="space-y-6 w-full md:w-1/2" onSubmit={handleSubmit}>
-                            <div>
-                                <input
-                                    type="text"
-                                    name="fullname"
-                                    value={formData.fullname}
-                                    onChange={handleChange}
-                                    className="w-full px-3 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                                    placeholder="Full Name"
-                                />
-                            </div>
-                            <div>
-                                <input
-                                    type="text"
-                                    name="username"
-                                    value={formData.username}
-                                    onChange={handleChange}
-                                    className="w-full px-3 py-2 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                                    placeholder="User Name"
-                                />
-                            </div>
                             <div>
                                 <input
                                     type="email"
@@ -111,29 +95,19 @@ export default function SignUp() {
                                 className="w-full py-3 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white font-bold rounded-lg focus:outline-none"
                                 disabled={loading}
                             >
-                                {loading ? <ClipLoader size={20} color="#ffffff" /> : "Sign Up"}
+                                {loading ? <ClipLoader size={20} color="#ffffff" /> : "Login"}
                             </button>
-                            <Link className="text-white text-md md:text-lg  underline mt-4" href="/login">
-                                Already have an account! Login now! 
-                             </Link>
+                            <Link href="/sign-up" className="text-white z-100 cursor-pointer text-lg underline mt-8">
+                                Don't have an account? Sign up Now!
+                            </Link>
                         </form>
                         <div className="text-center w-full md:w-1/2">
-                            <p className="text-gray-400">OR sign in using</p>
-                            <div className="mt-4 space-y-2">
-                                <button className="w-full py-2 bg-gray-700 text-white font-bold rounded-lg focus:outline-none">
-                                    Sign in with Google
-                                </button>
-                                <button className="w-full py-2 bg-gray-700 text-white font-bold rounded-lg focus:outline-none">
-                                    Sign in with Apple Account
-                                </button>
-                                <button className="w-full py-2 bg-gray-700 text-white font-bold rounded-lg focus:outline-none">
-                                    Sign in with Facebook
-                                </button>
-                            </div>
+                        <SignIn />
                         </div>
                     </div>
                 </div>
                 <Toaster />
+
             </div>
         </>
     );
