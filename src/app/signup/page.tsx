@@ -8,7 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { ClipLoader } from "react-spinners";
 
-export default function page() {
+export default function SignUp() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
@@ -36,7 +36,7 @@ export default function page() {
             console.log(response.data); // handle success response
         } catch (error:any) {
             console.error("Error:", error.response.data);
-            toast.error("Failed to register user!");
+            toast.error("Failed to register user!"+ error.response.data.message);
         } finally {
             setLoading(false);
         }
@@ -52,9 +52,9 @@ export default function page() {
                     src="/cube.svg"
                     width={500}
                     height={500}
+                    alt="cube"
                     objectFit="cover"
                     className="z-0 absolute"
-                    alt="cube"
                 />
 
                 <div className="z-10 relative bg-opacity-80 p-10 rounded-lg">
@@ -119,7 +119,18 @@ export default function page() {
                              </Link>
                         </form>
                         <div className="text-center w-full md:w-1/2">
-                        
+                            <p className="text-gray-400">OR sign in using</p>
+                            <div className="mt-4 space-y-2">
+                                <button className="w-full py-2 bg-gray-700 text-white font-bold rounded-lg focus:outline-none">
+                                    Sign in with Google
+                                </button>
+                                <button className="w-full py-2 bg-gray-700 text-white font-bold rounded-lg focus:outline-none">
+                                    Sign in with Apple Account
+                                </button>
+                                <button className="w-full py-2 bg-gray-700 text-white font-bold rounded-lg focus:outline-none">
+                                    Sign in with Facebook
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
