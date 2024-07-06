@@ -65,7 +65,7 @@ export default function Dashboard() {
                     alt="Profile Picture"
                     width={106}
                     height={106}
-                    className="rounded-full border-2"
+                    className="rounded-md border-2"
                   />
                 ) : (
                   <Image
