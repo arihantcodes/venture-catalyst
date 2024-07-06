@@ -53,7 +53,7 @@ const GridBackgroundDemo = () => {
       </div>
       <div className="flex flex-col items-center mt-4 md:flex-row justify-center gap-4">
         <div className="relative">
-          <Link href="/dashboard">
+          <Link href="/login">
             <Button
               variant={"outline"}
               className=" w-full py-3 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white font-bold rounded-lg focus:outline-none"
