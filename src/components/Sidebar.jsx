@@ -16,12 +16,13 @@ const Sidebar = () => {
   const handleLogout = async () => {
     try {
 
-      const response = await axios.get('/api/v1/auth/logout');
-      toast.success('Logged out successfully');
+      const response = await axios.post('/api/v1/auth/logout');
       if (response.status === 200) {
-        // Redirect to login page
-        router.push('/');
+        localStorage.removeItem('token');
+        router.push('/login');
       }
+      
+      toast.success('Logged out successfully');
     } catch (error) {
       console.error('Error logging out:', error);
       toast.error('Error logging out');

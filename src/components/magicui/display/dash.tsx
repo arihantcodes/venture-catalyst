@@ -1,35 +1,20 @@
 "use client";
 import React, { useState } from "react";
-import axios from "axios";
 import Navbar from "./navbar";
 import { AnimatedGradientTextDemo } from "@/components/AnimatedGradientTextDemo";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import confetti from "canvas-confetti";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import  Link  from "next/link";
+
 
 const GridBackgroundDemo = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handlejoin = async () => {
-    setLoading(true);
-    try {
-      await axios.post("/api/waitlist", {
-        email,
-      });
-      toast.success("Thank you for joining the waitlist");
-      setEmail("");
-    } catch (error) {
-      toast.error("Something went wrong");
-      setEmail("");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const handleJoinClick = () => {
+    router.push("/login");
+  }
 
   return (
     <div>
@@ -53,14 +38,15 @@ const GridBackgroundDemo = () => {
       </div>
       <div className="flex flex-col items-center mt-4 md:flex-row justify-center gap-4">
         <div className="relative">
-          <Link href="/login">
-            <Button
-              variant={"outline"}
-              className=" w-full py-3 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white font-bold rounded-lg focus:outline-none"
-            >
-              Join The Community
-            </Button>
-          </Link>
+
+          <Button
+            onClick={handleJoinClick}
+            variant={"outline"}
+            className=" w-full py-3 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white font-bold rounded-lg focus:outline-none"
+          >
+            Join The Community
+          </Button>
+
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 ">

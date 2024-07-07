@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import Image from "next/image";
 import Sidebar from "../../components/Sidebar";
 import axios from "axios";
@@ -16,27 +16,18 @@ export default function Dashboard() {
   });
 
   useEffect(() => {
-    const storedUserData = localStorage.getItem("userData");
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get("/api/v1/dashboard");
+        const fetchedData = response.data;
+        fetchedData.fullname = fetchedData.fullname.toUpperCase(); // Convert fullname to uppercase
+        setUserData(fetchedData);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
 
-    if (storedUserData) {
-      const parsedData = JSON.parse(storedUserData);
-      parsedData.fullname = parsedData.fullname.toUpperCase(); // Convert fullname to uppercase
-      setUserData(parsedData);
-    } else {
-      const fetchUserData = async () => {
-        try {
-          const response = await axios.get("/api/v1/dashboard");
-          const fetchedData = response.data;
-          fetchedData.fullname = fetchedData.fullname.toUpperCase(); // Convert fullname to uppercase
-          setUserData(fetchedData);
-          localStorage.setItem("userData", JSON.stringify(fetchedData));
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-        }
-      };
-
-      fetchUserData();
-    }
+    fetchUserData();
   }, []);
 
   const {

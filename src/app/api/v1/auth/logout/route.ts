@@ -4,7 +4,7 @@ import { connectDb } from "@/dbConfig/dbConfig"
 
 connectDb()
 
-export async  function GET(request:NextRequest,response:NextResponse){
+export async  function POST(request:NextRequest,response:NextResponse){
 
     try {
       const response =  NextResponse.json({message:'Logout successful',success:true}, {status: 200}) 
