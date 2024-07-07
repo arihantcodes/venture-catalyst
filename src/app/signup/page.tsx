@@ -48,6 +48,15 @@ export default function SignUp() {
                 <title>Sign Up</title>
             </Head>
             <div className="min-h-screen flex flex-col items-center justify-center bg-black relative">
+                <Image 
+                src='/Vector.svg' 
+                width={50}
+                alt="logo"
+                height={50}
+                onClick={() => router.push("/")}
+                className="z-10  cursor-pointer absolute md:top-5 md:left-10 top-2 left-2"
+                />
+                
                 <Image
                     src="/cube.svg"
                     width={500}
