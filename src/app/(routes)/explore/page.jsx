@@ -5,127 +5,114 @@ import axios from 'axios';
 import Sidebar from '@/components/Sidebar';
 
 const Explore = () => {
-    const [profiles, setProfiles] = useState([]);
+    const [allProfiles, setAllProfiles] = useState([]);
+    const [searchedProfile, setSearchedProfile] = useState(null);
     const [username, setUsername] = useState("");
     const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
 
-    // Debounce function
-    const debounce = (func, delay) => {
-        let debounceTimer;
-        return function (...args) {
-            const context = this;
-            clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => func.apply(context, args), delay);
-        };
+    const fetchAllProfiles = async () => {
+        try {
+            setIsLoading(true);
+            const response = await axios.get('/api/v1/explore');
+            setAllProfiles(response.data);
+        } catch (error) {
+            console.error('Error fetching all profiles:', error);
+            setError("Failed to load profiles. Please try again.");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
-    const fetchUser = async (username) => {
+    const fetchUser = async () => {
+        if (!username) return;
         try {
+            setIsLoading(true);
             const response = await axios.get(`/api/v1/search?username=${username}`);
-            setProfiles([response.data]);
+            setSearchedProfile(response.data);
             setError("");
         } catch (err) {
-            setProfiles([]);
-            setError(err.response?.data?.message || "Error fetching user");
+            setSearchedProfile(null);
+            setError(err.response?.data?.message || "No profile found");
+        } finally {
+            setIsLoading(false);
         }
-    };
-
-    const debouncedFetchUser = debounce(fetchUser, 700);
-
-    useEffect(() => {
-        if (username) {
-            debouncedFetchUser(username);
-        } else {
-            // Fetch all profiles if no username is searched
-            fetchProfilesAndUpdateLocalStorage();
-        }
-    }, [username]);
-
-    // Function to fetch profiles from API and update localStorage
-    const fetchProfilesAndUpdateLocalStorage = async () => {
-        try {
-            const response = await axios.get('/api/v1/explore');
-            const fetchedProfiles = response.data;
-            setProfiles(fetchedProfiles);
-
-            // Update localStorage with new profiles
-            updateLocalStorageProfiles(fetchedProfiles);
-        } catch (error) {
-            console.error('Error fetching profiles:', error);
-        }
-    };
-
-    // Function to update localStorage with new profiles
-    const updateLocalStorageProfiles = (newProfiles) => {
-        const storedProfiles = JSON.parse(localStorage.getItem('profiles')) || [];
-        const updatedProfiles = [...storedProfiles];
-
-        // Add new profiles that are not already in localStorage
-        newProfiles.forEach(profile => {
-            if (!storedProfiles.some(p => p._id === profile._id)) {
-                updatedProfiles.push(profile);
-            }
-        });
-
-        // Store updated profiles in localStorage
-        localStorage.setItem('profiles', JSON.stringify(updatedProfiles));
     };
 
     useEffect(() => {
-        // Fetch profiles on component mount
-        fetchProfilesAndUpdateLocalStorage();
-
-        // Set interval to periodically fetch profiles and update localStorage
-        const updateInterval = setInterval(fetchProfilesAndUpdateLocalStorage, 5 * 60000); // Update every 5 minutes
-
-        // Clean up interval on component unmount
-        return () => clearInterval(updateInterval);
+        fetchAllProfiles();
     }, []);
 
-    return (
-        <div className="flex">
-            <Sidebar />
-            <div className="flex flex-col items-center">
-                <div className="text-white text-3xl text-center p-4">Explore other People</div>
+    const filteredProfiles = allProfiles.filter(profile => 
+        profile.username !== searchedProfile?.username
+    );
 
-                {/* Search bar */}
-                <div className="mb-4 w-3/4 md:w-1/2">
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            fetchUser();
+        }
+    };
+
+    return (
+        <div className="flex flex-col md:flex-row">
+            <Sidebar />
+            <div className="flex flex-col items-center w-full px-4 md:px-8">
+                <h1 className="text-white text-3xl text-center p-4">Explore other People</h1>
+
+                <div className="mb-4 w-full md:w-3/4 flex">
                     <input
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className="rounded-lg w-full p-2 bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+                        onKeyPress={handleKeyPress}
+                        className="rounded-l-lg w-full p-2 bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
                         placeholder="Explore other entrepreneurs"
                     />
+                    <button
+                        onClick={fetchUser}
+                        className="bg-blue-500 text-white rounded-r-lg px-4 py-2 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+                    >
+                        Search
+                    </button>
                 </div>
 
-                {/* Error message */}
-                {/* Don't show error when there is no username */}
-                {username && error && <p className="text-red-500 mb-4">{error}</p>}
+                {error && <p className="text-red-500 mb-4">{error}</p>}
+                {isLoading && <p>Loading profiles...</p>}
 
-                {/* Profile cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-5 w-full">
-                    {profiles.map(profile => {
-                        // Filter profiles based on the search input
-                        if (!username || profile.username.includes(username)) {
-                            return (
-                                <ProfileCard
-                                    key={profile._id}
-                                    fullname={profile.fullname}
-                                    username={profile.username}
-                                    ventureName={profile.profile.ventureName}
-                                    linkedinUrl={profile.profile.linkedinUrl}
-                                    bio={profile.profile.bio}
-                                    profilePictureUrl={profile.profile.profilePictureUrl}
-                                />
-                            );
-                        }
-                        return null;
-                    })}
+                {searchedProfile && (
+                    <div className="w-full mb-8">
+                        <h2 className="text-white text-2xl mb-4">Search Result</h2>
+                        <div className="w-full md:w-2/3 lg:w-1/2 mx-auto">
+                            <ProfileCard
+                                fullname={searchedProfile.fullname}
+                                username={searchedProfile.username}
+                                ventureName={searchedProfile.profile.ventureName}
+                                linkedinUrl={searchedProfile.profile.linkedinUrl}
+                                bio={searchedProfile.profile.bio}
+                                profilePictureUrl={searchedProfile.profile.profilePictureUrl}
+                            />
+                        </div>
+                    </div>
+                )}
+
+                <div className="w-full">
+                    <h2 className="text-white text-2xl mb-4">Similar Profiles</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {filteredProfiles.map(profile => (
+                            <ProfileCard
+                                key={profile._id}
+                                fullname={profile.fullname}
+                                username={profile.username}
+                                ventureName={profile.profile.ventureName}
+                                linkedinUrl={profile.profile.linkedinUrl}
+                                bio={profile.profile.bio}
+                                profilePictureUrl={profile.profile.profilePictureUrl}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>
-
     );
 };
 
