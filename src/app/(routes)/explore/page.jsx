@@ -49,13 +49,13 @@ const Explore = () => {
     }, []);
 
     return (
-        <div className="flex">
+        <div className="flex  ">
     <Sidebar />
-    <div className="flex-1 flex flex-col items-center">
+    <div className="flex flex-col justify-center items-center">
         <div className="text-white text-3xl  text-center p-4">Explore other People</div>
         <input
             type="text"
-            className="rounded-lg p-2 w-full md:w-1/2 mx-auto bg-gray-200 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+            className="rounded-lg w-3/4 p-2  md:w-1/2  bg-gray-200 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
             placeholder="explore other entrepreneurs"
         />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-5 w-full">
