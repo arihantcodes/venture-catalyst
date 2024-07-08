@@ -15,19 +15,18 @@ const Sidebar = () => {
 
   const handleLogout = async () => {
     try {
-
       const response = await axios.post('/api/v1/auth/logout');
       if (response.status === 200) {
         localStorage.removeItem('token');
         router.push('/login');
+        toast.success('Logged out successfully');
       }
-      
-      toast.success('Logged out successfully');
     } catch (error) {
       console.error('Error logging out:', error);
       toast.error('Error logging out');
     }
   }
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -69,61 +68,35 @@ const Sidebar = () => {
         </button>
       </div>
       {/* Sidebar Content */}
-      <div className={`min-h-screen w-[15rem] border-r border-gray-700 mr-10 bg-black text-white p-4 transition-transform transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 fixed md:relative z-10`}>
+      <div className={`min-h-screen w-[15rem] border-r border-gray-700 bg-black text-white p-4 transition-transform transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 fixed md:relative z-10 overflow-y-auto`}>
         <div className="flex flex-col items-center ml-8 md:block">
           <Image src="/Vector.svg" alt="Profile Picture" width={96} height={96} className="rounded-full mb-10" />
           <nav className="space-y-4">
             <Link className='flex items-center space-x-1 hover:bg-gray-700 p-1 rounded-md cursor-pointer' href="/roadmap" passHref>
-
-              <Image
-                src='/rmicon.png'
-                width={24}
-                height={24}
-              />
-
-              <span className=" text-xl items-center  hover:bg-gray-700  rounded-md cursor-pointer">Roadmap</span>
+              <Image src='/rmicon.png' width={24} height={24} />
+              <span className="text-xl items-center hover:bg-gray-700 rounded-md cursor-pointer">Roadmap</span>
             </Link>
-            {/* <Link href="/module" passHref>
-              <span className="flex text-xl items-center space-x-2 hover:bg-gray-700 p-2 rounded-md cursor-pointer">Module</span>
-            </Link> */}
             <Link className='flex items-center space-x-1 hover:bg-gray-700 p-2 rounded-md cursor-pointer' href="/explore" passHref>
-              <Image
-                width={24}
-                height={24}
-                src='/pficon.png'
-              />
-              <span className="flex text-xl items-center  hover:bg-gray-700  rounded-md cursor-pointer">Explore</span>
+              <Image width={24} height={24} src='/pficon.png' />
+              <span className="flex text-xl items-center hover:bg-gray-700 rounded-md cursor-pointer">Explore</span>
             </Link>
             <Link className='flex items-center space-x-1 hover:bg-gray-700 p-2 rounded-md cursor-pointer' href="/share" passHref>
-              <Image
-                width={20}
-                height={20}
-                src='/shareicon.png'
-              />
-              <span className="flex text-xl items-center  hover:bg-gray-700 rounded-md cursor-pointer">Share</span>
+              <Image width={20} height={20} src='/shareicon.png' />
+              <span className="flex text-xl items-center hover:bg-gray-700 rounded-md cursor-pointer">Share</span>
             </Link>
             <Button
               variant={'outline'}
               onClick={handleLogout}
-              className='block md:hidden bg-red-500 hover:bg-red-700 rounded-lg text-white ' >
+              className='block md:hidden bg-red-500 hover:bg-red-700 rounded-lg text-white'>
               Logout
             </Button>
           </nav>
         </div>
 
-        <div className="flex-grow overflow-y-auto">
-          <div className="flex flex-col items-center ml-8 md:block">
-            {/* Add your sidebar links and other content here */}
-
-
-
-          </div>
-        </div>
-
         <div className="absolute bottom-0 left-0 flex flex-col right-0 p-4">
           <button
             onClick={handleLogout}
-            className=' hidden md:block  bg-red-600 text-lg p-2 m-3 text-white rounded-lg'>
+            className='hidden md:block bg-red-600 text-lg p-2 m-3 text-white rounded-lg'>
             Logout
           </button>
           <span className="text-center text-sm">© 2024 VCatalyst</span>
@@ -132,10 +105,7 @@ const Sidebar = () => {
       </div>
       <Toaster />
     </div>
-
   );
 }
-
-
 
 export default Sidebar;

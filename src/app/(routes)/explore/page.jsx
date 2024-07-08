@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import ProfileCard from '@/components/ProfileCard';
 import axios from 'axios';
+import Sidebar from '@/components/Sidebar';
 
 const Explore = () => {
     const [profiles, setProfiles] = useState([]);
@@ -50,6 +51,7 @@ const Explore = () => {
     return (
         <>
             <div className='text-white text-3xl text-center p-4'>Explore other People</div>
+            <Sidebar />
             <div className='grid grid-cols-1 md:grid-cols-3 gap-4 p-5'>
                 {profiles.map(profile => (
                     <ProfileCard
