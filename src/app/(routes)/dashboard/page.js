@@ -1,6 +1,6 @@
 'use client'
 import Image from "next/image";
-import Sidebar from "../../components/Sidebar";
+import Sidebar from "../../../components/Sidebar";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Linkedin } from "lucide-react";
