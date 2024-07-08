@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useEffect, useState } from 'react';
 import ProfileCard from '@/components/ProfileCard';
 import axios from 'axios';
@@ -42,30 +42,32 @@ const Explore = () => {
         fetchProfilesAndUpdateLocalStorage();
 
         // Set interval to periodically fetch profiles and update localStorage
-        const updateInterval = setInterval(fetchProfilesAndUpdateLocalStorage, 5*60000); // Update every minute
+        const updateInterval = setInterval(fetchProfilesAndUpdateLocalStorage, 5 * 60000); // Update every 5 minutes
 
         // Clean up interval on component unmount
         return () => clearInterval(updateInterval);
     }, []);
 
     return (
-        <>
-            <div className='text-white text-3xl text-center p-4'>Explore other People</div>
+        <div className="flex">
             <Sidebar />
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-4 p-5'>
-                {profiles.map(profile => (
-                    <ProfileCard
-                        key={profile._id}
-                        fullname={profile.fullname}
-                        username={profile.username}
-                        ventureName={profile.profile.ventureName}
-                        linkedinUrl={profile.profile.linkedinUrl}
-                        bio={profile.profile.bio}
-                        profilePictureUrl={profile.profile.profilePictureUrl}
-                    />
-                ))}
+            <div className="flex-1">
+                <div className="text-white text-3xl text-center p-4">Explore other People</div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-5">
+                    {profiles.map(profile => (
+                        <ProfileCard
+                            key={profile._id}
+                            fullname={profile.fullname}
+                            username={profile.username}
+                            ventureName={profile.profile.ventureName}
+                            linkedinUrl={profile.profile.linkedinUrl}
+                            bio={profile.profile.bio}
+                            profilePictureUrl={profile.profile.profilePictureUrl}
+                        />
+                    ))}
+                </div>
             </div>
-        </>
+        </div>
     );
 };
 
