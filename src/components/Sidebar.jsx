@@ -72,6 +72,10 @@ const Sidebar = () => {
         <div className="flex flex-col items-center ml-8 md:block">
           <Image src="/Vector.svg" alt="Profile Picture" width={96} height={96} className="rounded-full mb-10" />
           <nav className="space-y-4">
+            <Link className='flex items-center space-x-1 hover:bg-gray-700 p-1 rounded-md cursor-pointer' href="/dashboard" passHref>
+              <Image src='/rmicon.png' width={24} height={24} />
+              <span className="text-xl items-center hover:bg-gray-700 rounded-md cursor-pointer">Dashboard</span>
+            </Link>
             <Link className='flex items-center space-x-1 hover:bg-gray-700 p-1 rounded-md cursor-pointer' href="/roadmap" passHref>
               <Image src='/rmicon.png' width={24} height={24} />
               <span className="text-xl items-center hover:bg-gray-700 rounded-md cursor-pointer">Roadmap</span>

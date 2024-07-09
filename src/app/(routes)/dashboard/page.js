@@ -40,8 +40,8 @@ export default function Dashboard() {
   } = userData;
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col sm:flex-row">
-      <Sidebar />
+    <div className="">
+      
       <div className="container mx-auto p-4 flex-grow">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="flex flex-col gap-4">

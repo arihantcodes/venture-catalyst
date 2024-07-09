@@ -54,8 +54,8 @@ const Explore = () => {
     };
 
     return (
-        <div className="flex flex-col md:flex-row">
-            <Sidebar />
+        <div className="">
+            
             <div className="flex flex-col items-center w-full px-4 md:px-8">
                 <h1 className="text-white text-3xl text-center p-4">Explore other People</h1>
 
