@@ -1,5 +1,5 @@
-import { connectDb } from "../../../dbConfig/dbConfig.js";
-import Waitlist from "../../../models/waitlist.model.js";
+import { connectDb } from "../../../dbConfig/dbConfig";
+import Waitlist from "../../../models/waitlist.model";
 import { NextRequest, NextResponse } from "next/server";
 
 connectDb();

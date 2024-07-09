@@ -1,4 +1,3 @@
-import Profile from "@/models/profile.model";
 import User from "@/models/user.model"; 
 import { connectDb } from "@/dbConfig/dbConfig";
 import { NextRequest, NextResponse } from "next/server";

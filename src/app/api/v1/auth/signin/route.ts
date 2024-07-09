@@ -1,10 +1,10 @@
-import { connectDb } from "@/dbConfig/dbConfig.js";
-import User from "@/models/user.model.js";
+import { connectDb } from "@/dbConfig/dbConfig";
+import User from "@/models/user.model";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 
 import jwt from "jsonwebtoken";
-import Profile from "@/models/profile.model.js";
+import Profile from "@/models/profile.model";
 
 connectDb();
 

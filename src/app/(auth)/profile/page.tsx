@@ -13,10 +13,10 @@ export default function Profile() {
         bio: "",
         linkedinUrl: "",
         ventureName: "",
-        profilePic: null, // Add profilePic state to hold the uploaded file
+        profilePic: "", // Add profilePic state to hold the uploaded file
     });
 
-    const handleChange = (e) => {
+    const handleChange = (e:any) => {
         const { name, value, files } = e.target;
         if (name === "profilePic") {
             setFormData({
@@ -31,7 +31,7 @@ export default function Profile() {
         }
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e:any) => {
         e.preventDefault();
         setLoading(true);
         try {
@@ -45,7 +45,7 @@ export default function Profile() {
             toast.success("User Profile Created successfully!");
             router.push("/dashboard");
             console.log(response.data); // handle success response
-        } catch (error) {
+        } catch (error:any) {
             console.error("Error:", error.response.data);
             toast.error("Failed to create Profile!");
         } finally {
@@ -59,6 +59,7 @@ export default function Profile() {
                 <Image
                     src="/cube.svg"
                     width={500}
+                    alt="cube"
                     height={500}
                     objectFit="cover"
                     className="z-0 absolute"

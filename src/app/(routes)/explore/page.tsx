@@ -1,22 +1,45 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, KeyboardEvent, ChangeEvent } from 'react';
 import ProfileCard from '@/components/ProfileCard';
 import axios from 'axios';
 import Sidebar from '@/components/Sidebar';
 
-const Explore = () => {
-    const [allProfiles, setAllProfiles] = useState([]);
-    const [searchedProfile, setSearchedProfile] = useState(null);
-    const [username, setUsername] = useState("");
-    const [error, setError] = useState("");
-    const [isLoading, setIsLoading] = useState(true);
+interface Profile {
+    _id: string;
+    fullname: string;
+    username: string;
+    profile: {
+        ventureName: string;
+        linkedinUrl: string;
+        bio: string;
+        profilePictureUrl: string;
+    };
+}
+
+interface SearchedProfile {
+    fullname: string;
+    username: string;
+    profile: {
+        ventureName: string;
+        linkedinUrl: string;
+        bio: string;
+        profilePictureUrl: string;
+    };
+}
+
+const Explore: React.FC = () => {
+    const [allProfiles, setAllProfiles] = useState<Profile[]>([]);
+    const [searchedProfile, setSearchedProfile] = useState<SearchedProfile | null>(null);
+    const [username, setUsername] = useState<string>("");
+    const [error, setError] = useState<string>("");
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const fetchAllProfiles = async () => {
         try {
             setIsLoading(true);
             const response = await axios.get('/api/v1/explore');
             setAllProfiles(response.data);
-        } catch (error) {
+        } catch (error: any) {
             console.error('Error fetching all profiles:', error);
             setError("Failed to load profiles. Please try again.");
         } finally {
@@ -31,7 +54,7 @@ const Explore = () => {
             const response = await axios.get(`/api/v1/search?username=${username}`);
             setSearchedProfile(response.data);
             setError("");
-        } catch (err) {
+        } catch (err: any) {
             setSearchedProfile(null);
             setError(err.response?.data?.message || "No profile found");
         } finally {
@@ -47,7 +70,7 @@ const Explore = () => {
         profile.username !== searchedProfile?.username
     );
 
-    const handleKeyPress = (e) => {
+    const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             fetchUser();
         }
@@ -55,7 +78,6 @@ const Explore = () => {
 
     return (
         <div className="">
-            
             <div className="flex flex-col items-center w-full px-4 md:px-8">
                 <h1 className="text-white text-3xl text-center p-4">Explore other People</h1>
 
@@ -63,7 +85,7 @@ const Explore = () => {
                     <input
                         type="text"
                         value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
                         onKeyPress={handleKeyPress}
                         className="rounded-l-lg w-full p-2 bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
                         placeholder="Explore other entrepreneurs"

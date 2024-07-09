@@ -64,6 +64,7 @@ export default function Dashboard() {
                     className="rounded-full border-2 p-4 text-center"
                     width={106}
                     height={106}
+                    alt="Profile Picture"
                   />
                 )}
               </div>
