@@ -3,15 +3,16 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
 import { Button } from "@/components/ui/button";
 
 const Sidebar = () => {
-
   const router = useRouter();
-
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+
+  const isLinkActive = (href: string) => pathname === href;
 
   const handleLogout = async () => {
     try {
@@ -34,24 +35,18 @@ const Sidebar = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (isOpen) {
-        // Close the menu if it is open
         setIsOpen(false);
       }
     };
 
     if (isOpen) {
-      // Prevent scrolling on the body when menu is open
       document.body.style.overflow = 'hidden';
-      // Add event listener to handle scroll
       window.addEventListener('scroll', handleScroll);
     } else {
-      // Re-enable scrolling on the body when menu is closed
       document.body.style.overflow = 'unset';
-      // Remove event listener if menu is closed
       window.removeEventListener('scroll', handleScroll);
     }
 
-    // Clean up event listener on component unmount
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -77,21 +72,41 @@ const Sidebar = () => {
             height={96}
             className="rounded-full mb-10" />
           <nav className="space-y-4">
-            <Link className='flex items-center space-x-1 hover:bg-gray-700 p-1 rounded-md cursor-pointer' href="/dashboard" passHref>
+            <Link 
+              className={`flex items-center space-x-1 p-1 rounded-md cursor-pointer ${
+                isLinkActive('/dashboard') ? 'bg-gray-700' : 'hover:bg-gray-700'
+              }`} 
+              href="/dashboard"
+            >
               <Image alt='roadmap' src='/rmicon.png' width={24} height={24} />
-              <span className="text-xl items-center hover:bg-gray-700 rounded-md cursor-pointer">Dashboard</span>
+              <span className="text-xl items-center">Dashboard</span>
             </Link>
-            <Link className='flex items-center space-x-1 hover:bg-gray-700 p-1 rounded-md cursor-pointer' href="/roadmap" passHref>
+            <Link 
+              className={`flex items-center space-x-1 p-1 rounded-md cursor-pointer ${
+                isLinkActive('/roadmap') ? 'bg-gray-700' : 'hover:bg-gray-700'
+              }`} 
+              href="/roadmap"
+            >
               <Image alt='icon' src='/rmicon.png' width={24} height={24} />
-              <span className="text-xl items-center hover:bg-gray-700 rounded-md cursor-pointer">Roadmap</span>
+              <span className="text-xl items-center">Roadmap</span>
             </Link>
-            <Link className='flex items-center space-x-1 hover:bg-gray-700 p-2 rounded-md cursor-pointer' href="/explore" passHref>
+            <Link 
+              className={`flex items-center space-x-1 p-2 rounded-md cursor-pointer ${
+                isLinkActive('/explore') ? 'bg-gray-700' : 'hover:bg-gray-700'
+              }`} 
+              href="/explore"
+            >
               <Image alt='icon' width={24} height={24} src='/pficon.png' />
-              <span className="flex text-xl items-center hover:bg-gray-700 rounded-md cursor-pointer">Explore</span>
+              <span className="flex text-xl items-center">Explore</span>
             </Link>
-            <Link className='flex items-center space-x-1 hover:bg-gray-700 p-2 rounded-md cursor-pointer' href="/share" passHref>
+            <Link 
+              className={`flex items-center space-x-1 p-2 rounded-md cursor-pointer ${
+                isLinkActive('/share') ? 'bg-gray-700' : 'hover:bg-gray-700'
+              }`} 
+              href="/share"
+            >
               <Image alt='icon' width={20} height={20} src='/shareicon.png' />
-              <span className="flex text-xl items-center hover:bg-gray-700 rounded-md cursor-pointer">Share</span>
+              <span className="flex text-xl items-center">Share</span>
             </Link>
             <Button
               variant={'outline'}
