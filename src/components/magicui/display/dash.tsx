@@ -24,7 +24,7 @@ const GridBackgroundDemo = () => {
         <h1 className="text-3xl md:text-6xl font-bold text-white text-center">
           Redefining
         </h1>
-        <span className="text-3xl md:text-6xl font-bold bg-clip-text ml-0 md:ml-4 text-transparent bg-gradient-to-r from-gradient-start via-gradient-middle to-gradient-end text-center">
+        <span className="text-3xl md:text-6xl font-bold bg-clip-text ml-0 md:ml-4 text-transparent bg-gradient-to-r from-gradient-start [-webkit-background-clip:text] via-gradient-middle to-gradient-end text-center">
           Entrepreneurship
         </span>
       </div>
@@ -42,7 +42,7 @@ const GridBackgroundDemo = () => {
           <Button
             onClick={handleJoinClick}
             variant={"outline"}
-            className=" w-full py-3 bg-gradient-to-r from-yellow-500 via-red-500 to-pink-500 text-white font-bold rounded-lg focus:outline-none"
+            className=" w-full  py-3 bg-gradient-to-r from-yellow-500 via-red-500 to-pink-500 text-white font-bold rounded-lg focus:outline-none"
           >
             Join The Community
           </Button>
