@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-
+import { ThemeProvider } from "@/components/theme-provider"
 import { Analytics } from "@vercel/analytics/react"
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,9 +18,18 @@ export default function RootLayout({
   return (
     
     <html lang="en">
-      <body className="bg-black ">
+      <body className=" ">
+      <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
         <Analytics />
-        {children}</body>
+
+        {children}
+        </ThemeProvider>
+        </body>
     </html>
     
   );

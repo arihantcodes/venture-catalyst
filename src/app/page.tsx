@@ -7,7 +7,7 @@ import { BentoGrids } from "@/components/magicui/display/why";
 
 export default function Home() {
   return (
-    <>
+    <div className="bg-black">
       <GridPatternDashed />
       <Roadmap />
       <div>
@@ -22,6 +22,8 @@ export default function Home() {
         <BentoGrids />
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
+
+

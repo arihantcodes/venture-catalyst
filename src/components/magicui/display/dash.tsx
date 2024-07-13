@@ -17,10 +17,10 @@ const GridBackgroundDemo = () => {
   }
 
   return (
-    <div>
+    <div className="">
       <Navbar />
       <AnimatedGradientTextDemo />
-      <div className="flex flex-col md:flex-row justify-center px-4">
+      <div className="flex flex-col md:flex-row justify-center px-4 ">
         <h1 className="text-3xl md:text-6xl font-bold text-white text-center">
           Redefining
         </h1>

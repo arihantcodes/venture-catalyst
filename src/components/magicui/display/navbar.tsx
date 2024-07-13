@@ -10,11 +10,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-200 md:mt-5 rounded-md md:rounded-full shadow-md p-4 mx-auto max-w-2xl">
+    <nav className="bg-gray-200 md:mt-1 rounded-md md:rounded-full shadow-md p-4 mx-auto max-w-2xl">
       <div className="flex justify-between items-center">
         <div className="flex items-center space-x-2">
           <img src="/logo.svg" alt="Logo" className="h-8 w-8"/>
-          <span className="font-bold text-xl">VentureCatalyst</span>
+          <span className="font-bold text-xl text-black">VentureCatalyst</span>
         </div>
         <div className="hidden md:flex space-x-8">
           <Link href="/">
