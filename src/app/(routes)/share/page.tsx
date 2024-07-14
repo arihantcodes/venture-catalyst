@@ -1,11 +1,5 @@
 "use client";
-
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Linkedin } from "lucide-react";
-
-import Image from "next/image";
-import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -24,9 +18,9 @@ import {
   ShoppingCart,
   Truck,
   Map,
-  Loader ,
   Users2,
   Share2,
+  Loader,
 } from "lucide-react";
 import { ModeToggle } from "@/components/ui/moon";
 import {
@@ -38,22 +32,6 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
-import {
-  FaLinkedin,
-  FaGlobe,
-  FaTwitter,
-  FaFacebook,
-  FaBehance,
-} from "react-icons/fa";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
   Tooltip,
@@ -61,46 +39,50 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Graph } from "@/components/ui/graph";
+import Link from "next/link";
+import Image from "next/image";
+import Countdown from "react-countdown";
 
-export default function Dashboard() {
-  const [userData, setUserData] = useState({
-    fullname: "",
-    bio: "",
-    ventureName: "",
-    linkedinUrl: "",
-    username: "",
-    profilePictureUrl: "",
-    websiteUrl: "arihant.com",
-  });
+const Roadmap = () => {
+    const launchDate = new Date('2024-08-01T00:00:00');
+const [isClient, setIsClient] = useState(false);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get("/api/v1/dashboard");
-        const fetchedData = response.data;
-        fetchedData.fullname = fetchedData.fullname.toUpperCase(); // Convert fullname to uppercase
-        setUserData(fetchedData);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-
-    fetchUserData();
-  }, []);
-
-  const {
-    fullname,
-    bio,
-    ventureName,
-    linkedinUrl,
-    username,
-    profilePictureUrl,
-    websiteUrl,
-  } = userData;
-
+useEffect(() => {
+  setIsClient(true);
+}, []);
+const renderer = ({ days, hours, minutes, seconds, completed }: any) => {
+  if (completed) {
+    return <span>We are live now!</span>;
+  } else {
+    return (
+      <div className="flex flex-col items-center space-y-4">
+        <h1 className="text-6xl font-bold text-white">Coming Soon</h1>
+        <div className="flex space-x-4 text-4xl font-semibold text-white">
+          <div>
+            <div>{days}</div>
+            <div className="text-sm">Days</div>
+          </div>
+          <div>
+            <div>{hours}</div>
+            <div className="text-sm">Hours</div>
+          </div>
+          <div>
+            <div>{minutes}</div>
+            <div className="text-sm">Minutes</div>
+          </div>
+          <div>
+            <div>{seconds}</div>
+            <div className="text-sm">Seconds</div>
+          </div>
+        </div>
+        <p className="mt-4 text-xl text-white">
+          We are working hard to bring something amazing!
+        </p>
+      </div>
+    );
+  }
+};
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
@@ -215,7 +197,13 @@ export default function Dashboard() {
                   href="#"
                   className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
                 >
-                  <Image src="/vector.svg" height={30} width={40} alt="" className="h-5 w-5 transition-all group-hover:scale-110" />
+                  <Image
+                    src="/vector.svg"
+                    height={30}
+                    width={40}
+                    alt=""
+                    className="h-5 w-5 transition-all group-hover:scale-110"
+                  />
                   <span className="sr-only">Vcatalyst</span>
                 </Link>
                 <Link
@@ -254,73 +242,22 @@ export default function Dashboard() {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href="/dashboard">Dashboard</Link>
+                  <Link href="/dashboard">Share Profile</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
-             
             </BreadcrumbList>
           </Breadcrumb>
         </header>
-        <main className="flex justify-evenly mt-4 md:flex-row flex-col">
-          {/* Profile Card */}
-          <div className="w-full max-w-sm mb-8 md:mb-0 bg-white rounded-xl shadow-lg p-6 text-center">
-            <div className="flex justify-center mb-4">
-              {profilePictureUrl ? (
-                <Image
-                  src={profilePictureUrl}
-                  alt="Profile Picture"
-                  width={100}
-                  height={100}
-                  className="rounded-full border-4 border-white shadow-sm"
-                />
-              ):(
-                <div className="flex items-center justify-center w-24 h-24">
-                <div className="animate-spin rounded-full h-20 w-20 border-t-4 border-b-4 border-gray-900"></div>
-              </div>
-              )}
-            </div>
-            <h1 className="text-xl font-bold text-gray-900">{fullname}</h1>
-            <p className="text-sm text-gray-600">Founder@{ventureName}</p>
-           
-            <div className="flex justify-between mt-4 text-gray-700">
-              <div>
-                <p className="text-lg font-semibold">{11}</p>
-                <p className="text-xs text-gray-500">Projects</p>
-              </div>
-              <div>
-                <p className="text-lg font-semibold">{250}</p>
-                <p className="text-xs text-gray-500">Following</p>
-              </div>
-              <div>
-                <p className="text-lg font-semibold">{185}</p>
-                <p className="text-xs text-gray-500">Followers</p>
-              </div>
-            </div>
-            <p className="mt-4 text-sm text-gray-600">
-              {bio ||
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et est et velit ornare ultricies. Ut vitae diam volutpat, mattis eros eget."}
-            </p>
-            <div className="flex justify-center mt-4 space-x-4 text-blue-600">
-              <Link href={linkedinUrl} className="hover:text-blue-800">
-                <FaLinkedin size={20} />
-              </Link>
-              <Link href={"#"} className="hover:text-blue-800">
-                <FaTwitter size={20} />
-              </Link>
-            </div>
-            <button className="mt-6 bg-blue-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-blue-700">
-              Edit Profile
-            </button>
-          </div>
-
-          {/* Progress Card */}
-          <div className="p-6 bg-[#2E008E] text-white rounded-lg shadow-lg">
-            <div className="flex flex-col items-center">
-              <Graph />
+        <main className="flex justify-center items-center">
+          <div className="flex items-center justify-center  ">
+            <div className="text-center animate-fadeIn">
+              <Countdown date={launchDate} renderer={renderer} />
             </div>
           </div>
         </main>
       </div>
     </div>
   );
-}
+};
+
+export default Roadmap;

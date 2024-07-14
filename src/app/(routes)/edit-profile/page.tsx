@@ -2,8 +2,6 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Linkedin } from "lucide-react";
-
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -24,9 +22,9 @@ import {
   ShoppingCart,
   Truck,
   Map,
-  Loader ,
   Users2,
   Share2,
+  Loader,
 } from "lucide-react";
 import { ModeToggle } from "@/components/ui/moon";
 import {
@@ -38,22 +36,6 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
-import {
-  FaLinkedin,
-  FaGlobe,
-  FaTwitter,
-  FaFacebook,
-  FaBehance,
-} from "react-icons/fa";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
   Tooltip,
@@ -61,45 +43,52 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Graph } from "@/components/ui/graph";
 
-export default function Dashboard() {
-  const [userData, setUserData] = useState({
+export default function Editprofile() {
+  const [profile, setProfile] = useState({
     fullname: "",
-    bio: "",
-    ventureName: "",
-    linkedinUrl: "",
     username: "",
+    email: "",
+    ventureName: "",
+    bio: "",
+
     profilePictureUrl: "",
-    websiteUrl: "arihant.com",
   });
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchProfile = async () => {
       try {
         const response = await axios.get("/api/v1/dashboard");
-        const fetchedData = response.data;
-        fetchedData.fullname = fetchedData.fullname.toUpperCase(); // Convert fullname to uppercase
-        setUserData(fetchedData);
+        setProfile(response.data);
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error("Error fetching profile data:", error);
       }
     };
 
-    fetchUserData();
+    fetchProfile();
   }, []);
 
-  const {
-    fullname,
-    bio,
-    ventureName,
-    linkedinUrl,
-    username,
-    profilePictureUrl,
-    websiteUrl,
-  } = userData;
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setProfile((prevProfile) => ({
+      ...prevProfile,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await axios.put("/api/auth/v1/profile", profile);
+      alert("Profile updated successfully");
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      alert("Failed to update profile");
+    }
+  };
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -215,8 +204,14 @@ export default function Dashboard() {
                   href="#"
                   className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
                 >
-                  <Image src="/vector.svg" height={30} width={40} alt="" className="h-5 w-5 transition-all group-hover:scale-110" />
-                  <span className="sr-only">Vcatalyst</span>
+                  <Image
+                    src="/vector.svg"
+                    height={30}
+                    width={40}
+                    alt=""
+                    className="h-5 w-5 transition-all group-hover:scale-110"
+                  />
+                  <span className="sr-only">Acme Inc</span>
                 </Link>
                 <Link
                   href="/dashboard"
@@ -254,72 +249,100 @@ export default function Dashboard() {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href="/dashboard">Dashboard</Link>
+                  <Link href="/dashboard">Edit Profile</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
-             
             </BreadcrumbList>
           </Breadcrumb>
         </header>
-        <main className="flex justify-evenly mt-4 md:flex-row flex-col">
-          {/* Profile Card */}
-          <div className="w-full max-w-sm mb-8 md:mb-0 bg-white rounded-xl shadow-lg p-6 text-center">
-            <div className="flex justify-center mb-4">
-              {profilePictureUrl ? (
-                <Image
-                  src={profilePictureUrl}
-                  alt="Profile Picture"
-                  width={100}
-                  height={100}
-                  className="rounded-full border-4 border-white shadow-sm"
-                />
-              ):(
-                <div className="flex items-center justify-center w-24 h-24">
+        <main className="flex flex-col md:flex-row justify-evenly mt-4">
+  <div className="max-w-3xl w-full">
+    <div className="bg-white text-black p-8 rounded-lg shadow-lg w-full">
+      <h2 className="text-2xl font-bold mb-6">Edit Profile</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex flex-col items-center">
+            {profile.profilePictureUrl ? (
+              <Image
+                src={profile.profilePictureUrl}
+                alt="Profile Picture"
+                width={100}
+                height={100}
+                className="rounded-full border-4 border-white shadow-sm"
+              />
+            ) : (
+              <div className="flex items-center justify-center w-24 h-24">
                 <div className="animate-spin rounded-full h-20 w-20 border-t-4 border-b-4 border-gray-900"></div>
               </div>
-              )}
-            </div>
-            <h1 className="text-xl font-bold text-gray-900">{fullname}</h1>
-            <p className="text-sm text-gray-600">Founder@{ventureName}</p>
-           
-            <div className="flex justify-between mt-4 text-gray-700">
-              <div>
-                <p className="text-lg font-semibold">{11}</p>
-                <p className="text-xs text-gray-500">Projects</p>
-              </div>
-              <div>
-                <p className="text-lg font-semibold">{250}</p>
-                <p className="text-xs text-gray-500">Following</p>
-              </div>
-              <div>
-                <p className="text-lg font-semibold">{185}</p>
-                <p className="text-xs text-gray-500">Followers</p>
-              </div>
-            </div>
-            <p className="mt-4 text-sm text-gray-600">
-              {bio ||
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et est et velit ornare ultricies. Ut vitae diam volutpat, mattis eros eget."}
-            </p>
-            <div className="flex justify-center mt-4 space-x-4 text-blue-600">
-              <Link href={linkedinUrl} className="hover:text-blue-800">
-                <FaLinkedin size={20} />
-              </Link>
-              <Link href={"#"} className="hover:text-blue-800">
-                <FaTwitter size={20} />
-              </Link>
-            </div>
-            <button className="mt-6 bg-blue-600 text-white py-2 px-4 rounded-full shadow-md hover:bg-blue-700">
-              Edit Profile
-            </button>
+            )}
+            <Button className="mt-4">✎ Edit</Button>
           </div>
 
-          {/* Progress Card */}
-          <div className="p-6 bg-[#2E008E] text-white rounded-lg shadow-lg">
-            <div className="flex flex-col items-center">
-              <Graph />
+          <div className="flex flex-col gap-4">
+            <div>
+              <label htmlFor="name" className="block text-gray-700 mb-1">
+                Your Name
+              </label>
+              <Input
+                type="text"
+                id="name"
+                name="name"
+                value={profile.fullname}
+                onChange={handleChange}
+                className="w-full px-3 py-2 bg-gray-200 rounded border border-gray-300"
+              />
+            </div>
+            <div>
+              <label htmlFor="username" className="block text-gray-700 mb-1">
+                User Name
+              </label>
+              <Input
+                type="text"
+                id="username"
+                name="username"
+                value={profile.username}
+                onChange={handleChange}
+                className="w-full px-3 py-2 bg-gray-200 rounded border border-gray-300"
+              />
+            </div>
+            <div>
+              <label htmlFor="founder" className="block text-gray-700 mb-1">
+                Founder @
+              </label>
+              <Input
+                type="text"
+                id="founder"
+                name="founder"
+                value={profile.ventureName}
+                onChange={handleChange}
+                className="w-full px-3 py-2 bg-gray-200 rounded border border-gray-300"
+              />
+            </div>
+            <div>
+              <label htmlFor="bio" className="block text-gray-700 mb-1">
+                Bio
+              </label>
+              <textarea
+                id="bio"
+                name="bio"
+                value={profile.bio}
+                onChange={handleChange}
+                className="w-full px-3 py-2 bg-gray-200 rounded border border-gray-300"
+                style={{ height: "150px" }}
+              />
             </div>
           </div>
-        </main>
+        </div>
+        <div className="flex justify-center mt-6">
+          <Button variant="outline" className="bg-black text-white">
+            Save
+          </Button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
       </div>
     </div>
   );
