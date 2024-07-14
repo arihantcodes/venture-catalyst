@@ -100,6 +100,34 @@ export async function POST(request: NextRequest) {
 }
 
 
+export async function GET(request: NextRequest) {
+    try {
+      console.log('Received GET request');
+      
+      const userId = getDataFromToken(request);
+      console.log('User ID from token:', userId);
+      
+      const profile = await Profile.findOne({ userId });
+      if (!profile) {
+        console.log('Profile does not exist for user ID:', userId);
+        return NextResponse.json({ message: 'Profile does not exist' }, { status: 404 });
+      }
+      
+      console.log('Profile found:', profile);
+      
+      return NextResponse.json({
+        message: 'Profile found',
+        success: true,
+        profile,
+      });
+    } catch (error: any) {
+      console.error('Error:', error.message);
+      return NextResponse.json({ message: 'Failed to get profile' }, { status: 500 });
+    }
+  
+}
+
+
 export async function PUT(request: NextRequest) {
     try {
       console.log('Received PUT request');
