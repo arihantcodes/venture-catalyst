@@ -98,3 +98,66 @@ export async function POST(request: NextRequest) {
  }
 }
 
+export async function PUT(request: NextRequest) {
+    try {
+      console.log('Received PUT request');
+      
+      const data = await request.formData();
+      console.log('Request body:', data);
+      
+      if (!data) {
+        return NextResponse.json({ message: 'Please provide required fields' }, { status: 400 });
+      }
+      
+      const bio = data.get('bio')?.toString();
+      const ventureName = data.get('ventureName')?.toString();
+      const linkedinUrl = data.get('linkedinUrl')?.toString();
+      const profilePic = data.get('profilePic') as File | null;
+      
+      console.log('Fields:', { bio, ventureName, linkedinUrl, profilePic });
+      
+      if (!bio && !ventureName && !linkedinUrl && !profilePic) {
+        console.log('No fields to update');
+        return NextResponse.json({ message: 'No fields to update' }, { status: 400 });
+      }
+      
+      const userId = getDataFromToken(request);
+      console.log('User ID from token:', userId);
+      
+      const existingProfile = await Profile.findOne({ userId });
+      if (!existingProfile) {
+        console.log('Profile does not exist for user ID:', userId);
+        return NextResponse.json({ message: 'Profile does not exist' }, { status: 404 });
+      }
+      
+      let updateData: any = {};
+      
+      if (bio) updateData.bio = bio;
+      if (ventureName) updateData.ventureName = ventureName;
+      if (linkedinUrl) updateData.linkedinUrl = linkedinUrl;
+      
+      if (profilePic) {
+        const buffer = Buffer.from(await profilePic.arrayBuffer());
+        const uploadPicUrl = await uploadAvatar(buffer);
+        console.log('Uploaded profile picture URL:', uploadPicUrl);
+        updateData.profilePictureUrl = uploadPicUrl;
+      }
+      
+      const updatedProfile = await Profile.findOneAndUpdate(
+        { userId },
+        updateData,
+        { new: true }
+      );
+      
+      console.log('Profile updated:', updatedProfile);
+      
+      return NextResponse.json({
+        message: 'Profile updated successfully',
+        success: true,
+        updatedProfile,
+      });
+    } catch (error: any) {
+      console.error('Error:', error.message);
+      return NextResponse.json({ message: 'Failed to update profile' }, { status: 500 });
+    }
+  }
