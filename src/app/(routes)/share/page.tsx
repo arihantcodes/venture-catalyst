@@ -21,6 +21,7 @@ import {
   Users2,
   Share2,
   Loader,
+  LogOut,
 } from "lucide-react";
 import { ModeToggle } from "@/components/ui/moon";
 import {
@@ -43,11 +44,23 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Link from "next/link";
 import Image from "next/image";
 import Countdown from "react-countdown";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const Roadmap = () => {
     const launchDate = new Date('2024-08-01T00:00:00');
 const [isClient, setIsClient] = useState(false);
+const router = useRouter()
+const handlelogut = () =>{
 
+  try {
+    axios.post("/api/v1/auth/logout");
+
+    router.push("/")
+  } catch (error) {
+    console.log("Logout error:", error);
+  }
+}
 useEffect(() => {
   setIsClient(true);
 }, []);
@@ -84,9 +97,9 @@ const renderer = ({ days, hours, minutes, seconds, completed }: any) => {
   }
 };
   return (
-    <div className="flex min-h-screen w-full flex-col bg-muted/40">
-      <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
-        <nav className="flex flex-col items-center gap-4 px-2 sm:py-4">
+    <div className="flex min-h-screen w-full flex-col bg-black">
+      <aside className="fixed inset-y-0 left-0 z-10 hidden w-16 md:w-32 flex-col border-r bg-background sm:flex">
+        <nav className="flex flex-col items-center justify-center gap-4 px-2 py-4">
           <Link
             href="#"
             className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
@@ -94,92 +107,47 @@ const renderer = ({ days, hours, minutes, seconds, completed }: any) => {
             <Image src="/Vector.svg" alt="Logo" width={36} height={36} />
             <span className="sr-only">Vcatalyst</span>
           </Link>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="/dashboard"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <Home className="h-5 w-5" />
-                  <span className="sr-only">Dashboard</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Dashboard</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="/roadmap"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <Map className="h-5 w-5" />
-                  <span className="sr-only">Roadmap</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Roadmap</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="/share"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <Share2 className="h-5 w-5" />
-                  <span className="sr-only">Share</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Share</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="/explore"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <Users2 className="h-5 w-5" />
-                  <span className="sr-only">Explore</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Explore</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="/edit-profile"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <Image
-                    src="/user-pen.svg"
-                    className="h-5 w-5 "
-                    alt=""
-                    height={30}
-                    width={30}
-                  />
-                  <span className="sr-only">Profile</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Profile</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+
+          {[
+            { href: "/dashboard", icon: Home, label: "Dashboard" },
+            { href: "/roadmap", icon: Map, label: "Roadmap" },
+            { href: "/explore", icon: Users2, label: "Explore" },
+            { href: "/share", icon: Share2, label: "Share" },
+            { href: "/editprofile", icon: "/user-pen.svg", label: "Profile" },
+          ].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="group flex flex-col items-center justify-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {typeof item.icon === "string" ? (
+                <Image
+                  src={item.icon}
+                  className="h-5 w-5"
+                  alt=""
+                  height={30}
+                  width={30}
+                />
+              ) : (
+                <item.icon className="h-5 w-5" />
+              )}
+              <span className="text-xs md:text-sm group-hover:text-foreground">
+                {item.label}
+              </span>
+            </Link>
+          ))}
         </nav>
-        <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-4">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <ModeToggle />
-              </TooltipTrigger>
-              <TooltipContent side="right"></TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+
+        <nav onClick={handlelogut} className="mt-auto flex flex-col items-center justify-center gap-4 px-2 py-4">
+          <Link
+            href="/settings"
+            className="group flex flex-col items-center justify-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <LogOut className="h-5 w-5" />
+            <span className="text-xs md:text-sm group-hover:text-foreground">
+              Logout
+            </span>
+          </Link>
         </nav>
       </aside>
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
@@ -234,19 +202,11 @@ const renderer = ({ days, hours, minutes, seconds, completed }: any) => {
                   <Users2 className="h-5 w-5" />
                   Explore
                 </Link>
-                <ModeToggle />
+                
               </nav>
             </SheetContent>
           </Sheet>
-          <Breadcrumb className="hidden md:flex">
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link href="/dashboard">Share Profile</Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+      
         </header>
         <main className="flex justify-center items-center">
           <div className="flex items-center justify-center  ">

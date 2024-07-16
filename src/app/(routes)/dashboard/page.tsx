@@ -2,70 +2,32 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Linkedin } from "lucide-react";
-
+import { Linkedin, LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Copy,
-  CreditCard,
-  File,
-  Home,
-  LineChart,
-  ListFilter,
-  MoreVertical,
-  Package,
-  Package2,
-  PanelLeft,
-  Search,
-  Settings,
-  ShoppingCart,
-  Truck,
-  Map,
-  Loader ,
-  Users2,
-  Share2,
-} from "lucide-react";
+import { Home, Map, Users2, Share2, PanelLeft } from "lucide-react";
 import { ModeToggle } from "@/components/ui/moon";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+
 import { Button } from "@/components/ui/button";
-import {
-  FaLinkedin,
-  FaGlobe,
-  FaTwitter,
-  FaFacebook,
-  FaBehance,
-} from "react-icons/fa";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { FaLinkedin, FaTwitter } from "react-icons/fa";
 
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Graph } from "@/components/ui/graph";
+import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
+
+  const router = useRouter()
+  const handlelogut = () =>{
+
+    try {
+      axios.post("/api/v1/auth/logout");
+
+      router.push("/")
+    } catch (error) {
+      console.log("Logout error:", error);
+    }
+  }
   const [userData, setUserData] = useState({
     fullname: "",
     bio: "",
@@ -73,7 +35,7 @@ export default function Dashboard() {
     linkedinUrl: "",
     username: "",
     profilePictureUrl: "",
-    websiteUrl: "arihant.com",
+    websiteUrl: "",
   });
 
   useEffect(() => {
@@ -81,7 +43,7 @@ export default function Dashboard() {
       try {
         const response = await axios.get("/api/v1/dashboard");
         const fetchedData = response.data;
-        fetchedData.fullname = fetchedData.fullname.toUpperCase(); // Convert fullname to uppercase
+        fetchedData.fullname = fetchedData.fullname.toUpperCase();
         setUserData(fetchedData);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -102,9 +64,9 @@ export default function Dashboard() {
   } = userData;
 
   return (
-    <div className="flex min-h-screen w-full flex-col bg-muted/40">
-      <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
-        <nav className="flex flex-col items-center gap-4 px-2 sm:py-4">
+    <div className="flex min-h-screen w-full flex-col bg-black">
+      <aside className="fixed inset-y-0 left-0 z-10 hidden w-16 md:w-32 flex-col border-r bg-background sm:flex">
+        <nav className="flex flex-col items-center justify-center gap-4 px-2 py-4">
           <Link
             href="#"
             className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
@@ -112,95 +74,51 @@ export default function Dashboard() {
             <Image src="/Vector.svg" alt="Logo" width={36} height={36} />
             <span className="sr-only">Vcatalyst</span>
           </Link>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="/dashboard"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <Home className="h-5 w-5" />
-                  <span className="sr-only">Dashboard</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Dashboard</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="/roadmap"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <Map className="h-5 w-5" />
-                  <span className="sr-only">Roadmap</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Roadmap</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="/share"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <Share2 className="h-5 w-5" />
-                  <span className="sr-only">Share</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Share</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="/explore"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <Users2 className="h-5 w-5" />
-                  <span className="sr-only">Explore</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Explore</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="/edit-profile"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-                >
-                  <Image
-                    src="/user-pen.svg"
-                    className="h-5 w-5 "
-                    alt=""
-                    height={30}
-                    width={30}
-                  />
-                  <span className="sr-only">Profile</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Profile</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+
+          {[
+            { href: "/dashboard", icon: Home, label: "Dashboard" },
+            { href: "/roadmap", icon: Map, label: "Roadmap" },
+            { href: "/explore", icon: Users2, label: "Explore" },
+            { href: "/share", icon: Share2, label: "Share" },
+            { href: "/editprofile", icon: "/user-pen.svg", label: "Profile" },
+          ].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="group flex flex-col items-center justify-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {typeof item.icon === "string" ? (
+                <Image
+                  src={item.icon}
+                  className="h-5 w-5"
+                  alt=""
+                  height={30}
+                  width={30}
+                />
+              ) : (
+                <item.icon className="h-5 w-5" />
+              )}
+              <span className="text-xs md:text-sm group-hover:text-foreground">
+                {item.label}
+              </span>
+            </Link>
+          ))}
         </nav>
-        <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-4">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <ModeToggle />
-              </TooltipTrigger>
-              <TooltipContent side="right"></TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+
+        <nav className="mt-auto flex flex-col items-center justify-center gap-4 px-2 py-4" onClick={handlelogut}>
+          <Link
+            href="/logout"
+            className="group flex flex-col items-center justify-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <LogOut className="h-5 w-5" />
+            <span className="text-xs md:text-sm group-hover:text-foreground">
+              Logout
+            </span>
+          </Link>
         </nav>
       </aside>
-      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+
+      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-20 md:pl-36">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
           <Sheet>
             <SheetTrigger asChild>
@@ -209,59 +127,41 @@ export default function Dashboard() {
                 <span className="sr-only">Toggle Menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="sm:max-w-xs">
+            <SheetContent side="left" className="w-64">
               <nav className="grid gap-6 text-lg font-medium">
                 <Link
                   href="#"
                   className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
                 >
-                  <Image src="/vector.svg" height={30} width={40} alt="" className="h-5 w-5 transition-all group-hover:scale-110" />
+                  <Image
+                    src="/vector.svg"
+                    height={30}
+                    width={40}
+                    alt=""
+                    className="h-5 w-5 transition-all group-hover:scale-110"
+                  />
                   <span className="sr-only">Vcatalyst</span>
                 </Link>
-                <Link
-                  href="/dashboard"
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
-                  <Home className="h-5 w-5" />
-                  Dashboard
-                </Link>
-                <Link
-                  href="/roadmap"
-                  className="flex items-center gap-4 px-2.5 text-foreground"
-                >
-                  <ShoppingCart className="h-5 w-5" />
-                  Roadmap
-                </Link>
-                <Link
-                  href="/share"
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
-                  <Package className="h-5 w-5" />
-                  Share Profile
-                </Link>
-                <Link
-                  href="/expolre"
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
-                  <Users2 className="h-5 w-5" />
-                  Explore
-                </Link>
-                <ModeToggle />
+                {[
+                  { href: "/dashboard", icon: Home, label: "Dashboard" },
+                  { href: "/roadmap", icon: Map, label: "Roadmap" },
+                  { href: "/share", icon: Share2, label: "Share Profile" },
+                  { href: "/explore", icon: Users2, label: "Explore" },
+                ].map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                  >
+                    <item.icon className="h-5 w-5" />
+                    {item.label}
+                  </Link>
+                ))}
               </nav>
             </SheetContent>
           </Sheet>
-          <Breadcrumb className="hidden md:flex">
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link href="/dashboard">Dashboard</Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-             
-            </BreadcrumbList>
-          </Breadcrumb>
         </header>
-        <main className="flex justify-evenly mt-4 md:flex-row flex-col">
+        <main className="flex flex-col md:flex-row justify-evenly mt-4 px-4 md:px-0">
           {/* Profile Card */}
           <div className="w-full max-w-sm mb-8 md:mb-0 bg-white rounded-xl shadow-lg p-6 text-center">
             <div className="flex justify-center mb-4">
@@ -273,15 +173,15 @@ export default function Dashboard() {
                   height={100}
                   className="rounded-full border-4 border-white shadow-sm"
                 />
-              ):(
+              ) : (
                 <div className="flex items-center justify-center w-24 h-24">
-                <div className="animate-spin rounded-full h-20 w-20 border-t-4 border-b-4 border-gray-900"></div>
-              </div>
+                  <div className="animate-spin rounded-full h-20 w-20 border-t-4 border-b-4 border-gray-900"></div>
+                </div>
               )}
             </div>
             <h1 className="text-xl font-bold text-gray-900">{fullname}</h1>
             <p className="text-sm text-gray-600">Founder@{ventureName}</p>
-           
+
             <div className="flex justify-between mt-4 text-gray-700">
               <div>
                 <p className="text-lg font-semibold">{11}</p>
@@ -314,7 +214,7 @@ export default function Dashboard() {
           </div>
 
           {/* Progress Card */}
-          <div className="p-6 bg-[#2E008E] text-white rounded-lg shadow-lg">
+          <div className="w-full md:w-auto p-6 bg-[#2E008E] text-white rounded-lg shadow-lg mt-8 md:mt-0">
             <div className="flex flex-col items-center">
               <Graph />
             </div>
