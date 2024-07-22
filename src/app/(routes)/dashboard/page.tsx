@@ -2,11 +2,10 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Linkedin, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Home, Map, Users2, Share2, PanelLeft } from "lucide-react";
-
 
 import { Button } from "@/components/ui/button";
 import { FaLinkedin, FaTwitter } from "react-icons/fa";
@@ -16,18 +15,16 @@ import { Graph } from "@/components/ui/graph";
 import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
-
-  const router = useRouter()
-  const handlelogut = () =>{
-
+  const router = useRouter();
+  const handlelogut = () => {
     try {
       axios.post("/api/v1/auth/logout");
 
-      router.push("/")
+      router.push("/");
     } catch (error) {
       console.log("Logout error:", error);
     }
-  }
+  };
   const [userData, setUserData] = useState({
     fullname: "",
     bio: "",
@@ -58,15 +55,14 @@ export default function Dashboard() {
     bio,
     ventureName,
     linkedinUrl,
-    username,
+
     profilePictureUrl,
-    websiteUrl,
   } = userData;
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-black">
-      <aside className="fixed inset-y-0 left-0 z-10 hidden w-16 md:w-32 flex-col border-r bg-background sm:flex">
-        <nav className="flex flex-col items-center justify-center gap-4 px-2 py-4">
+      <div className="fixed inset-y-0 left-0 z-10 hidden w-16 md:w-32 flex-col border-r bg-background sm:flex">
+        <div className="flex flex-col items-center justify-center gap-4 px-2 py-4">
           <Link
             href="#"
             className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
@@ -80,17 +76,17 @@ export default function Dashboard() {
             { href: "/roadmap", icon: Map, label: "Roadmap" },
             { href: "/explore", icon: Users2, label: "Explore" },
             { href: "/share", icon: Share2, label: "Share" },
-            { href: "/editprofile", icon: "/user-pen.svg", label: "Profile" },
+            { href: "/editprofile", icon: "/userpen.svg", label: "Profile" },
           ].map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="group flex flex-col items-center justify-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+              className="group text-white flex flex-col items-center justify-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
             >
               {typeof item.icon === "string" ? (
                 <Image
                   src={item.icon}
-                  className="h-5 w-5"
+                  className="h-5 w-5 text-white"
                   alt=""
                   height={30}
                   width={30}
@@ -98,14 +94,17 @@ export default function Dashboard() {
               ) : (
                 <item.icon className="h-5 w-5" />
               )}
-              <span className="text-xs md:text-sm group-hover:text-foreground">
+              <span className="text-xs text-white md:text-sm group-hover:text-foreground">
                 {item.label}
               </span>
             </Link>
           ))}
-        </nav>
+        </div>
 
-        <nav className="mt-auto flex flex-col items-center justify-center gap-4 px-2 py-4" onClick={handlelogut}>
+        <div
+          className="mt-auto flex flex-col text-white items-center justify-center gap-4 px-2 py-4"
+          onClick={handlelogut}
+        >
           <Link
             href="/logout"
             className="group flex flex-col items-center justify-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
@@ -115,20 +114,20 @@ export default function Dashboard() {
               Logout
             </span>
           </Link>
-        </nav>
-      </aside>
+        </div>
+      </div>
 
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-20 md:pl-36">
-        <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+        <div className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
           <Sheet>
             <SheetTrigger asChild>
               <Button size="icon" variant="outline" className="sm:hidden">
                 <PanelLeft className="h-5 w-5" />
-                <span className="sr-only">Toggle Menu</span>
+                <span className="sr-only text-white">Toggle Menu</span>
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-64">
-              <nav className="grid gap-6 text-lg font-medium">
+              <div className="grid gap-6 text-lg font-medium">
                 <Link
                   href="#"
                   className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
@@ -146,6 +145,11 @@ export default function Dashboard() {
                   { href: "/dashboard", icon: Home, label: "Dashboard" },
                   { href: "/roadmap", icon: Map, label: "Roadmap" },
                   { href: "/share", icon: Share2, label: "Share Profile" },
+                  {
+                    href: "/editprofile",
+                    icon: "/userpen.svg",
+                    label: "Profile",
+                  },
                   { href: "/explore", icon: Users2, label: "Explore" },
                 ].map((item) => (
                   <Link
@@ -153,16 +157,41 @@ export default function Dashboard() {
                     href={item.href}
                     className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                   >
-                    <item.icon className="h-5 w-5" />
-                    {item.label}
+                    {typeof item.icon === "string" ? (
+                      <Image
+                        src={item.icon}
+                        className="h-5 w-5 text-white"
+                        alt=""
+                        height={30}
+                        width={30}
+                      />
+                    ) : (
+                      <item.icon className="h-5 w-5" />
+                    )}
+                    <span className="text-xs text-white md:text-sm group-hover:text-foreground">
+                      {item.label}
+                    </span>
                   </Link>
                 ))}
-              </nav>
+                <div
+                  className=" text-white"
+                  onClick={handlelogut}
+                >
+                  <Link
+                    href="/logout"
+                    className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                  >
+                    <LogOut className="h-5 w-5" />
+                    <span className="text-xs md:text-sm group-hover:text-foreground">
+                      Logout
+                    </span>
+                  </Link>
+                </div>
+              </div>
             </SheetContent>
           </Sheet>
-        </header>
-        <main className="flex flex-col md:flex-row justify-evenly mt-4 px-4 md:px-0">
-          {/* Profile Card */}
+        </div>
+        <div className="flex flex-col md:flex-row justify-evenly mt-4 px-4 md:px-0">
           <div className="w-full max-w-sm mb-8 md:mb-0 bg-white rounded-xl shadow-lg p-6 text-center">
             <div className="flex justify-center mb-4">
               {profilePictureUrl ? (
@@ -196,10 +225,7 @@ export default function Dashboard() {
                 <p className="text-xs text-gray-500">Followers</p>
               </div>
             </div>
-            <p className="mt-4 text-sm text-gray-600">
-              {bio ||
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et est et velit ornare ultricies. Ut vitae diam volutpat, mattis eros eget."}
-            </p>
+            <p className="mt-4 text-sm text-gray-600">{bio || "Loading..."}</p>
             <div className="flex justify-center mt-4 space-x-4 text-blue-600">
               <Link href={linkedinUrl} className="hover:text-blue-800">
                 <FaLinkedin size={20} />
@@ -219,7 +245,7 @@ export default function Dashboard() {
               <Graph />
             </div>
           </div>
-        </main>
+        </div>
       </div>
     </div>
   );
