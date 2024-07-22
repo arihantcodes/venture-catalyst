@@ -76,7 +76,7 @@ export default function Dashboard() {
             { href: "/roadmap", icon: Map, label: "Roadmap" },
             { href: "/explore", icon: Users2, label: "Explore" },
             { href: "/share", icon: Share2, label: "Share" },
-            { href: "/editprofile", icon: "/userpen.svg", label: "Profile" },
+            { href: "/editprofile", icon: "/user-pen.svg", label: "Profile" },
           ].map((item) => (
             <Link
               key={item.href}
@@ -147,7 +147,7 @@ export default function Dashboard() {
                   { href: "/share", icon: Share2, label: "Share Profile" },
                   {
                     href: "/editprofile",
-                    icon: "/userpen.svg",
+                    icon: "/user-pen.svg",
                     label: "Profile",
                   },
                   { href: "/explore", icon: Users2, label: "Explore" },
