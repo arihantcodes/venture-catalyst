@@ -17,7 +17,7 @@ const GridBackgroundDemo = () => {
   }
 
   return (
-    <div className="h-[50rem] w-full  dark:bg-black bg-white  dark:bg-grid-white/[0.07] bg-grid-black/[0.02] ">
+    <div className="h-[50rem] w-full  bg-black   bg-grid-white/[0.07]  ">
       <Navbar />
       <AnimatedGradientTextDemo />
       <div className="flex flex-col md:flex-row justify-center px-4 ">

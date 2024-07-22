@@ -258,7 +258,7 @@ const Explore: React.FC = () => {
                             value={username}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
                             onKeyPress={handleKeyPress}
-                            className="rounded-l-lg w-full p-2 bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+                            className="rounded-l-lg w-full p-2 text-black bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
                             placeholder="Explore other entrepreneurs"
                         />
                         <button
