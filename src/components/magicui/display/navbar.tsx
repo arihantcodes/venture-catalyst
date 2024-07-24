@@ -21,8 +21,8 @@ const Navbar = () => {
             <span className="text-gray-700 hover:text-gray-900 cursor-pointer">About</span>
           </Link>
           
-          <Link href="/">
-            <span className="text-gray-700 hover:text-gray-900 cursor-pointer">Customers</span>
+          <Link href="/explore">
+            <span className="text-gray-700 hover:text-gray-900 cursor-pointer">Explore</span>
           </Link>
           <Link href="/">
             <span className="text-gray-700 hover:text-gray-900 cursor-pointer">Pricing</span>

@@ -96,7 +96,7 @@ export function Roadmap({ className = "" }: { className?: string }) {
             { href: "/dashboard", icon: Home, label: "Dashboard" },
             { href: "/roadmap", icon: Map, label: "Roadmap" },
             { href: "/explore", icon: Users2, label: "Explore" },
-            { href: "/share", icon: Share2, label: "Share" },
+            
             { href: "/editprofile", icon: "/user-pen.svg", label: "Profile" },
           ].map((item) => (
             <Link
@@ -165,7 +165,7 @@ export function Roadmap({ className = "" }: { className?: string }) {
                 {[
                   { href: "/dashboard", icon: Home, label: "Dashboard" },
                   { href: "/roadmap", icon: Map, label: "Roadmap" },
-                  { href: "/share", icon: Share2, label: "Share Profile" },
+                
                   {
                     href: "/editprofile",
                     icon: "/user-pen.svg",
