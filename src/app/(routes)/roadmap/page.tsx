@@ -53,7 +53,7 @@ const Circle = forwardRef<
 
 Circle.displayName = "Circle";
 
-export default function Roadmap({ className }: { className?: string }) {
+const  Roadmap= ({ className }: { className?: string }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const div1Ref = useRef<HTMLDivElement>(null);
   const div2Ref = useRef<HTMLDivElement>(null);
@@ -284,3 +284,6 @@ export default function Roadmap({ className }: { className?: string }) {
     </div>
   );
 }
+
+
+export default Roadmap

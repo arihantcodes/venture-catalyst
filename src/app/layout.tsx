@@ -5,8 +5,8 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Analytics } from "@vercel/analytics/react"
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import Footer from "@/components/footer";
-const inter = Inter({ subsets: ["latin"] });
+
+
 
 export const metadata: Metadata = {
   title: "Venture Catalyst",
