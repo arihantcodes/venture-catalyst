@@ -146,7 +146,7 @@ export default function Editprofile() {
                   className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
                 >
                   <Image
-                    src="/vector.svg"
+                    src="/Vector.svg"
                     height={30}
                     width={40}
                     alt=""

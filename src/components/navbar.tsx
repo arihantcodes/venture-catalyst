@@ -78,7 +78,7 @@ export function Navbar() {
 
 export function Logo() {
   return (
-    <Link href="/" className="flex items-center gap-2.5">
+    <Link href="/dashboard" className="flex items-center gap-2.5">
        <Image src="/Vector.svg" height={30} width={40} alt="" />
       <h2 className="text-md font-bold">Vcatalyst</h2>
     </Link>
