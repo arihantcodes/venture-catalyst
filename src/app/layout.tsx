@@ -3,7 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import { Analytics } from "@vercel/analytics/react"
-
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+import Footer from "@/components/footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,7 +22,10 @@ export default function RootLayout({
     
     <html lang="en">
        
-      <body className="bg-black ">
+       <body
+        className={`${GeistSans.variable} ${GeistMono.variable} font-regular bg-black`}
+        suppressHydrationWarning
+      >
       <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -30,6 +35,7 @@ export default function RootLayout({
         <Analytics />
 
         {children}
+        <Footer/>
         </ThemeProvider>
         </body>
     </html>
