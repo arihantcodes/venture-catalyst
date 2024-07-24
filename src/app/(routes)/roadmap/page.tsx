@@ -13,44 +13,58 @@ import {
   Package,
   Package2,
   PanelLeft,
-  Search,
-  Settings,
-  ShoppingCart,
-  Truck,
+  BadgeDollarSign,
   Map,
+  User,
   Users2,
   Share2,
   Loader,
   LogOut,
 } from "lucide-react";
-import { ModeToggle } from "@/components/ui/moon";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { forwardRef, useRef } from "react";
 import Link from "next/link";
+import { cn } from "@/utils/cn";
+import { AnimatedBeam } from "@/components/magicui/animated-beam";
+import { Button } from "@/components/ui/button";
+
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+
 import Image from "next/image";
-import Countdown from "react-countdown";
+
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
-const Roadmap = () => {
-  const launchDate = new Date("2024-08-01T00:00:00");
-  const [isClient, setIsClient] = useState(false);
+const Circle = forwardRef<
+  HTMLDivElement,
+  { className?: string; children?: React.ReactNode }
+>(({ className, children }, ref) => {
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "z-10 flex size-12 items-center justify-center rounded-full border-2 border-border bg-white p-3 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]",
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+});
+
+Circle.displayName = "Circle";
+
+export default function Roadmap({ className }: { className?: string }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const div1Ref = useRef<HTMLDivElement>(null);
+  const div2Ref = useRef<HTMLDivElement>(null);
+  const div3Ref = useRef<HTMLDivElement>(null);
+  const div4Ref = useRef<HTMLDivElement>(null);
+  const div5Ref = useRef<HTMLDivElement>(null);
+  const div6Ref = useRef<HTMLDivElement>(null);
+  const div7Ref = useRef<HTMLDivElement>(null);
+
   const router = useRouter();
+
   const handlelogut = () => {
     try {
       axios.post("/api/v1/auth/logout");
@@ -60,41 +74,12 @@ const Roadmap = () => {
       console.log("Logout error:", error);
     }
   };
+
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
     setIsClient(true);
   }, []);
-  const renderer = ({ days, hours, minutes, seconds, completed }: any) => {
-    if (completed) {
-      return <span>We are live now!</span>;
-    } else {
-      return (
-        <div className="flex flex-col items-center space-y-4">
-          <h1 className="text-6xl font-bold text-white">Coming Soon</h1>
-          <div className="flex space-x-4 text-4xl font-semibold text-white">
-            <div>
-              <div>{days}</div>
-              <div className="text-sm">Days</div>
-            </div>
-            <div>
-              <div>{hours}</div>
-              <div className="text-sm">Hours</div>
-            </div>
-            <div>
-              <div>{minutes}</div>
-              <div className="text-sm">Minutes</div>
-            </div>
-            <div>
-              <div>{seconds}</div>
-              <div className="text-sm">Seconds</div>
-            </div>
-          </div>
-          <p className="mt-4 text-xl text-white">
-            We are working hard to bring something amazing!
-          </p>
-        </div>
-      );
-    }
-  };
   return (
     <div className="flex min-h-screen w-full flex-col bg-black">
       <div className="fixed inset-y-0 left-0 z-10 hidden w-16 md:w-32 flex-col border-r bg-background sm:flex">
@@ -224,16 +209,78 @@ const Roadmap = () => {
             </SheetContent>
           </Sheet>
         </div>
+         <h1 className="text-white font-bold text-4xl">Roadmap</h1>
         <main className="flex justify-center items-center">
-          <div className="flex items-center justify-center  ">
-            <div className="text-center animate-fadeIn">
-              <Countdown date={launchDate} renderer={renderer} />
+          <div
+            className={cn(
+              "relative flex h-[500px] w-full items-center justify-center overflow-hidden   p-10 md:shadow-xl",
+              className
+            )}
+            ref={containerRef}
+          >
+            <div className="flex size-full flex-row items-stretch justify-between gap-10 max-w-lg">
+              <div className="flex flex-col justify-center gap-2 text-black">
+                <Link href="/docs/getting-started/introduction">
+                  <Circle ref={div1Ref}>1</Circle>
+                </Link>
+                <Link href="/docs/getting-started/introduction">
+                  <Circle ref={div2Ref}>2</Circle>
+                </Link>
+                <Link href="/docs/getting-started/introduction">
+                  <Circle ref={div3Ref}>3</Circle>
+                </Link>
+                <Link href="/docs/getting-started/introduction">
+                  <Circle ref={div4Ref}>4</Circle>
+                </Link>
+                <Link href="/docs/getting-started/introduction">
+                  <Circle ref={div5Ref}>5</Circle>
+                </Link>
+              </div>
+              <div className="flex flex-col justify-center text-black">
+                <Circle ref={div6Ref} className="size-16">
+                  <User />
+                </Circle>
+              </div>
+              <div className="flex flex-col justify-center text-black">
+                <Circle ref={div7Ref} className="size-16">
+                  <BadgeDollarSign />
+                </Circle>
+              </div>
             </div>
+
+            <AnimatedBeam
+              containerRef={containerRef}
+              fromRef={div1Ref}
+              toRef={div6Ref}
+            />
+            <AnimatedBeam
+              containerRef={containerRef}
+              fromRef={div2Ref}
+              toRef={div6Ref}
+            />
+            <AnimatedBeam
+              containerRef={containerRef}
+              fromRef={div3Ref}
+              toRef={div6Ref}
+            />
+            <AnimatedBeam
+              containerRef={containerRef}
+              fromRef={div4Ref}
+              toRef={div6Ref}
+            />
+            <AnimatedBeam
+              containerRef={containerRef}
+              fromRef={div5Ref}
+              toRef={div6Ref}
+            />
+            <AnimatedBeam
+              containerRef={containerRef}
+              fromRef={div6Ref}
+              toRef={div7Ref}
+            />
           </div>
         </main>
       </div>
     </div>
   );
-};
-
-export default Roadmap;
+}

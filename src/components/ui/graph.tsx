@@ -30,7 +30,7 @@ const desktopData = [
   { month: "february", desktop: 305, fill: "var(--color-february)" },
   { month: "march", desktop: 237, fill: "var(--color-march)" },
   { month: "april", desktop: 173, fill: "var(--color-april)" },
-  { month: "may", desktop: 209, fill: "var(--color-may)" },
+
 ]
 
 const chartConfig = {
@@ -45,24 +45,21 @@ const chartConfig = {
   },
   january: {
     label: "January",
-    color: "hsl(var(--chart-1))",
+    color: "#16DBCC",
   },
   february: {
     label: "February",
-    color: "hsl(var(--chart-2))",
+    color: "#4C78FF",
   },
   march: {
     label: "March",
-    color: "hsl(var(--chart-3))",
+    color: "#FF82AC",
   },
   april: {
     label: "April",
-    color: "hsl(var(--chart-4))",
+    color: "#FFBB38",
   },
-  may: {
-    label: "May",
-    color: "hsl(var(--chart-5))",
-  },
+
 } satisfies ChartConfig
 
 export function Graph() {

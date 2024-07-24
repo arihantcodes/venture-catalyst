@@ -35,7 +35,7 @@ export default function RootLayout({
         <Analytics />
 
         {children}
-        <Footer/>
+      
         </ThemeProvider>
         </body>
     </html>

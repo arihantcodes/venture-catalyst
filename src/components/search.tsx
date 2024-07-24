@@ -57,7 +57,7 @@ export default function Search() {
               placeholder="Search documentation..."
               type="search"
             />
-            <div className="sm:flex hidden absolute top-1/2 -translate-y-1/2 right-2 text-xs font-medium font-mono items-center gap-0.5 dark:bg-neutral-700 bg-zinc-200 p-1 rounded-sm">
+            <div className="sm:flex  hidden absolute top-1/2 -translate-y-1/2 right-2 text-xs font-medium font-mono items-center gap-0.5 dark:bg-neutral-700 bg-zinc-200 p-1 rounded-sm">
               <CommandIcon className="w-3 h-3" />
               <span>k</span>
             </div>
@@ -70,7 +70,7 @@ export default function Search() {
               onChange={(e) => setSearchedInput(e.target.value)}
               placeholder="Type something to search..."
               autoFocus
-              className="h-14 px-4 bg-transparent border-b text-[15px] outline-none"
+              className="h-14 px-4 bg-white text-black border-b text-[15px] outline-none"
             />
           </DialogHeader>
           {filteredResults.length == 0 && searchedInput && (
@@ -88,9 +88,9 @@ export default function Search() {
                   asChild
                 >
                   <Anchor
-                    className="dark:hover:bg-neutral-900 hover:bg-neutral-100 w-full p-2.5 px-3 rounded-sm text-[15px] flex items-center gap-2.5"
+                    className="text-white bg-black hover:bg-white hover:text-black w-full p-2.5 px-3 rounded-sm text-[15px] flex items-center gap-2.5"
                     href={`/docs/${item.href}`}
-                    activeClassName="dark:bg-neutral-900 bg-neutral-100"
+                    activeClassName="bg-white text-black "
                   >
                     <FileTextIcon className="h-[1.1rem] w-[1.1rem]" />{" "}
                     {item.title}
