@@ -52,8 +52,11 @@ const Circle = forwardRef<
 });
 
 Circle.displayName = "Circle";
+interface RoadmapProps {
+  className?: string;
+}
 
-const  Roadmap= ({ className }: { className?: string }) => {
+const Roadmap: React.FC<RoadmapProps> = ({ className }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const div1Ref = useRef<HTMLDivElement>(null);
   const div2Ref = useRef<HTMLDivElement>(null);
@@ -209,7 +212,7 @@ const  Roadmap= ({ className }: { className?: string }) => {
             </SheetContent>
           </Sheet>
         </div>
-         <h1 className="text-white font-bold text-4xl">Roadmap</h1>
+        <h1 className="text-white font-bold text-4xl">Roadmap</h1>
         <main className="flex justify-center items-center">
           <div
             className={cn(
@@ -283,7 +286,6 @@ const  Roadmap= ({ className }: { className?: string }) => {
       </div>
     </div>
   );
-}
+};
 
-
-export default Roadmap
+export default Roadmap;
