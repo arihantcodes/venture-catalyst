@@ -23,7 +23,7 @@ export const config = {
     '/profile',
     '/dashboard',
     '/explore',
-    'editprofile',
+    '/editprofile',
     '/roadmap',
   ]
 }
