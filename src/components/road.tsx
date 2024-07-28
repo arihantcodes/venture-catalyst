@@ -221,19 +221,23 @@ export function Roadmap({ className = "" }: { className?: string }) {
             <div className="flex size-full flex-row items-stretch justify-between gap-10 max-w-lg">
               <div className="flex flex-col justify-center gap-2 text-black">
                 <Link href="/docs/getting-started/introduction">
-                  <Circle ref={div1Ref}>1</Circle>
+                  <Circle ref={div1Ref}>
+                    <Image height={ 100} width={100} alt="" src="/model1.jpeg"/>
+                  </Circle>
                 </Link>
                 <Link href="/docs/getting-started/introduction">
-                  <Circle ref={div2Ref}>2</Circle>
+                  <Circle ref={div2Ref}>
+                  <Image height={ 100} width={100} alt="" src="/model2.jpeg"/>
+                  </Circle>
                 </Link>
                 <Link href="/docs/getting-started/introduction">
-                  <Circle ref={div3Ref}>3</Circle>
+                  <Circle ref={div3Ref}>  <Image height={ 100} width={100} alt="" src="/model1.jpeg"/></Circle>
                 </Link>
                 <Link href="/docs/getting-started/introduction">
-                  <Circle ref={div4Ref}>4</Circle>
+                  <Circle ref={div4Ref}>  <Image height={ 100} width={100} alt="" src="/model2.jpeg"/></Circle>
                 </Link>
                 <Link href="/docs/getting-started/introduction">
-                  <Circle ref={div5Ref}>5</Circle>
+                  <Circle ref={div5Ref}>  <Image height={ 100} width={100} alt="" src="/model1.jpeg"/></Circle>
                 </Link>
               </div>
               <div className="flex flex-col justify-center text-black">
