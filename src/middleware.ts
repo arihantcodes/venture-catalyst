@@ -22,5 +22,8 @@ export const config = {
     '/login',
     '/profile',
     '/dashboard',
+    '/explore',
+    'editprofile',
+    '/roadmap',
   ]
 }
